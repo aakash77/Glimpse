@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+
 @Entity
 @Table(name="User", uniqueConstraints = { @UniqueConstraint(columnNames = {
 "email"}) })
@@ -23,10 +24,10 @@ public class User {
 	
 	@Column(name="email",nullable=false)
     private String email;
-	
+
 	@Column(name="password",nullable=false)
 	private String password;
-
+	
 	
 	/**
 	 * @return the id
@@ -69,7 +70,7 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
 	/**
 	 * @return the password
 	 */
@@ -83,4 +84,5 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 }

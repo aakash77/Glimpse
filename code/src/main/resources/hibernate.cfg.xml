@@ -9,6 +9,9 @@
 	    <mapping class="com.group4.glimpse.model.User"/>       
 	    <mapping class="com.group4.glimpse.model.Project"/>
 	    <mapping class="com.group4.glimpse.model.Task"/>
-
-    </session-factory>
+	    <mapping class="com.group4.glimpse.model.Project_State"/>
+	    <mapping class="com.group4.glimpse.model.Task_State"/>	    
+		<mapping class="com.group4.glimpse.model.Invitations"/>	   
+	    
+	</session-factory>
 </hibernate-configuration>

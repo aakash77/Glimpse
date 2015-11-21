@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping(value = "/")
 public class HomeController {
 
 	/**
-	 * Dummy Home Page
+	 * Home Page
 	 * @param model
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String homepage( Model model) {
 		System.out.println("Home");
 		return "index";
