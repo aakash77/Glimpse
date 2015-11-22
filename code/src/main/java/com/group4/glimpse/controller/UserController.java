@@ -19,7 +19,7 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping(value = "/login",method = RequestMethod.POST)
+	@RequestMapping(value = "/api/login",method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<User> getUser(@ModelAttribute User user){
 		
@@ -34,7 +34,7 @@ public class UserController {
 			return new ResponseEntity<User>(user, HttpStatus.UNAUTHORIZED);
 	}
 
-	@RequestMapping(value = "/signup",method = RequestMethod.POST)
+	@RequestMapping(value = "/api/signup",method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<User> addUser(@ModelAttribute User user){
 		
@@ -47,6 +47,15 @@ public class UserController {
 	}
 
 
-
-
+	@RequestMapping(value = "/api/users",method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> checkUniqueEmail(@ModelAttribute String email){
+		
+		if(email.isEmpty()){
+			email=null;
+			return new ResponseEntity<String>(email, HttpStatus.BAD_REQUEST);
+		}
+		
+		return null;
+	}	
 }

@@ -19,4 +19,17 @@ public class HomeController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public String getLoginHomePage( Model model) {
+		System.out.println("Login");
+		return "login";
+	}
+	
+	@RequestMapping(value = "signup", method = RequestMethod.GET)
+	public String getSignUpHomePage( Model model) {
+		System.out.println("SignUp");
+		return "signup";
+	}
+	
+	
 }

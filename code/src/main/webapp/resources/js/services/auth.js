@@ -1,4 +1,4 @@
-glimpse.factory('Auth', function($http, $location, $rootScope, $alert) {
+glimpse.factory('Auth', function($http, $location, $rootScope, $alert, $window) {
 
 	login = function(dataURI, params) {
         return $http({
@@ -27,7 +27,7 @@ glimpse.factory('Auth', function($http, $location, $rootScope, $alert) {
           });
       },
 
-      signup = function(dataURI, params) {
+      signUp = function(dataURI, params) {
         return $http({
 	        	method : 'POST',
 				url : dataURI,
