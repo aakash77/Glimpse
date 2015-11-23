@@ -47,7 +47,7 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value = "/api/users",method = RequestMethod.GET)
+	@RequestMapping(value = "/api/users", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<String> checkUniqueEmail(@ModelAttribute String email){
 		
@@ -56,6 +56,6 @@ public class UserController {
 			return new ResponseEntity<String>(email, HttpStatus.BAD_REQUEST);
 		}
 		
-		return null;
+		return new ResponseEntity<String>("Got here", HttpStatus.OK);
 	}	
 }
