@@ -19,7 +19,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 	@Autowired
 	SessionFactory sessionFactory;
 	/**
-	 * Create new person DAO implementation
+	 * Create new project DAO implementation
 	 */
 	public Project create(Project project) {
 		
@@ -57,7 +57,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		}
 	
 	/**
-	 * Update person DAO implementation
+	 * Update project DAO implementation
 	 */
 	public Project update(Project project) {
 		Session session = sessionFactory.openSession();
@@ -76,7 +76,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 	
 	/**
-	 * Delete person DAO implementation
+	 * Delete project DAO implementation
 	 */
 	public Project delete(Project project) {
 		Session session = sessionFactory.openSession();

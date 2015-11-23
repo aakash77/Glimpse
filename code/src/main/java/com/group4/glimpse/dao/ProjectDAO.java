@@ -6,27 +6,27 @@ import com.group4.glimpse.model.Project;
 public interface ProjectDAO {
 
 	/**
-	 * create a new person entry
-	 * @return the person created or appropriate error code 
+	 * create a new project entry
+	 * @return the project created or appropriate error code 
 	 */
 	public Project create(Project project);
 	
 	/**
-	 * read person's details 
-	 * @return details of the Person read or appropriate error code
+	 * read details of a Project
+	 * @return
 	 */
 	public Project read(long project_id);
 	
 	
 	/**
-	 * update person's details
-	 * @return details of the Person updated or appropriate error code
+	 * update project's details
+	 * @return details of the Project updated or appropriate error code
 	 */
 	public Project update(Project project);
 	
 	/**
-	 * delete person entry
-	 * @return deleted entry of person
+	 * delete project entry
+	 * @return deleted entry of project
 	 */
 	public Project delete(Project project);
 }
