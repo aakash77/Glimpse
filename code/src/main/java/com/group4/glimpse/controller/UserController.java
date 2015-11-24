@@ -38,6 +38,8 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<User> addUser(@ModelAttribute User user){
 		
+		System.out.println("in signup api");
+		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(hashedPassword);
@@ -47,15 +49,16 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value = "/api/users", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/users",method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<String> checkUniqueEmail(@ModelAttribute String email){
 		
-		if(email.isEmpty()){
-			email=null;
-			return new ResponseEntity<String>(email, HttpStatus.BAD_REQUEST);
-		}
+		System.out.println("in api users");
 		
-		return new ResponseEntity<String>("Got here", HttpStatus.OK);
+		User user = userService.readEmail(email);
+		if(user==null)
+			return new ResponseEntity<String>("{ \"available\": true}", HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("{ \"available\": false}", HttpStatus.BAD_REQUEST);
 	}	
 }

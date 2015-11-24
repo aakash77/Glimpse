@@ -8,11 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
 
 @Entity
-@Table(name="user", uniqueConstraints = { @UniqueConstraint(columnNames = {
+@Table(name="User", uniqueConstraints = { @UniqueConstraint(columnNames = {
 "email"}) })
 public class User {
 
