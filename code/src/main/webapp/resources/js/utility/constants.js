@@ -2,8 +2,8 @@
  * URL Constants
  */
 var urlConstants = {
-	"LOGIN" : "/login",
-	"SIGNUP" : "/signup",
+	"LOGIN" : "/glimpse/api/login",
+	"SIGNUP" : "/glimpse/api/signup",
 
 
 };

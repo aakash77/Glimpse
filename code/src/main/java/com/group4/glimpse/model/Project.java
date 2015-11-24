@@ -18,10 +18,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
 @Entity
-@Table(name="project")
+@Table(name="Project")
 public class Project {
 
 	@Id
@@ -46,7 +44,7 @@ public class Project {
 	
 	@ManyToMany(fetch = FetchType.EAGER)
     @NotFound(action=NotFoundAction.IGNORE)
-    @JoinTable(name = "team", 
+    @JoinTable(name = "Team", 
         joinColumns = @JoinColumn(name = "project_id"), 
         inverseJoinColumns = @JoinColumn(name = "user",referencedColumnName="id"))
 	private List<User> team = new ArrayList<User>();
