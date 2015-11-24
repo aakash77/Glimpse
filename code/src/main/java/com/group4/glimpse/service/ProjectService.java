@@ -14,7 +14,6 @@ public interface ProjectService {
 	 */
 	public Project update(Project project);
 	
-	
 	/**
 	 * delete Project
 	 */

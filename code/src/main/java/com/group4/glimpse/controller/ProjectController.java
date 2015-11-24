@@ -27,7 +27,8 @@ public class ProjectController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Project> addUser(@ModelAttribute Project project,@ModelAttribute User user,
+	public ResponseEntity<Project> addUser(@ModelAttribute Project project,
+			@ModelAttribute User user,
 			@ModelAttribute Project_State state){	
 			
 			Project_State state_planning =  new Project_State();
@@ -44,7 +45,8 @@ public class ProjectController {
 	
 	@RequestMapping(method=RequestMethod.GET,value="{id}")
 	@ResponseBody
-	public ResponseEntity<Project> getPerson(@PathVariable long id,@RequestParam(required=false) String format){
+	public ResponseEntity<Project> getPerson(@PathVariable long id,
+			@RequestParam(required=false) String format){
 		
 		Project project = projectService.read(id);
 		if(project==null)
@@ -66,11 +68,26 @@ public class ProjectController {
 	
 	@RequestMapping(method=RequestMethod.POST,value="{id}")
 	@ResponseBody
-	public ResponseEntity<Project> updatePerson(@PathVariable long id,@ModelAttribute Project project){
-
+	public ResponseEntity<Project> updatePerson(@PathVariable long id,
+			@ModelAttribute Project project,
+			@ModelAttribute Project_State projectstate){
+		 
+		Project projectUpdate = projectService.read(id);
+		
+		if(project.getDescription()!=null){
+		projectUpdate.setDescription(project.getDescription());
+		}
+		
+		if(projectstate!=null){
+			projectUpdate.setState(projectstate);
+			}
+		
+		if(project.getTitle()!=null){
+			projectUpdate.setTitle(project.getTitle());
+			}
+		
 		//TODO add checks to update
-	
-		project = projectService.update(project);
+		project = projectService.update(projectUpdate);
 		if(project==null)
 		return new ResponseEntity<Project>(project, HttpStatus.NOT_FOUND);
 
