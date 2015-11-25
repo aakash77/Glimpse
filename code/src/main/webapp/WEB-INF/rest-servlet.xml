@@ -15,15 +15,13 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
 		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-
+   
     <aop:aspectj-autoproxy />
     
 	<context:annotation-config />
 	<context:component-scan base-package="com.group4.glimpse" />
-	
-	<mvc:annotation-driven />
 	
 	 <bean id="ViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -66,7 +64,5 @@
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
-
-	
+					
 </beans>

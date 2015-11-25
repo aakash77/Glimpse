@@ -7,10 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
 @Entity
-@Table(name="task_state")
+@Table(name="Task_State")
 public class Task_State {
 
 	@Id
@@ -18,6 +16,7 @@ public class Task_State {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long task_state_id;
 	
+	@Id
 	@Column(name="value",unique=true)
 	private String value;
 
