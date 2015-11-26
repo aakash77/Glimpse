@@ -27,18 +27,13 @@ public class ProjectController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Project> addProject(@ModelAttribute Project project,
+	public ResponseEntity<Project> addUser(@ModelAttribute Project project,
 			@ModelAttribute User user,
 			@ModelAttribute Project_State state){	
 			
 			Project_State state_planning =  new Project_State();
 			state_planning.setProject_state_id(1);
-			
-			//When a project is just created, its status is planning.
-			if(project.getState()==null){
 			project.setState(state_planning);
-			}
-			
 			//TODO: Set current user as the owner
 			project.setOwner(user);
 			
@@ -50,7 +45,7 @@ public class ProjectController {
 	
 	@RequestMapping(method=RequestMethod.GET,value="{id}")
 	@ResponseBody
-	public ResponseEntity<Project> getProject(@PathVariable long id,
+	public ResponseEntity<Project> getPerson(@PathVariable long id,
 			@RequestParam(required=false) String format){
 		
 		Project project = projectService.read(id);
@@ -62,7 +57,7 @@ public class ProjectController {
 	
 	@RequestMapping(method=RequestMethod.DELETE,value="{id}")
 	@ResponseBody
-	public ResponseEntity<Project> deleteProject(@PathVariable long id){
+	public ResponseEntity<Project> deletePerson(@PathVariable long id){
 
 		Project project = projectService.delete(id);
 		if(project==null)
@@ -73,7 +68,7 @@ public class ProjectController {
 	
 	@RequestMapping(method=RequestMethod.POST,value="{id}")
 	@ResponseBody
-	public ResponseEntity<Project> updateProject(@PathVariable long id,
+	public ResponseEntity<Project> updatePerson(@PathVariable long id,
 			@ModelAttribute Project project,
 			@ModelAttribute Project_State projectstate){
 		 
