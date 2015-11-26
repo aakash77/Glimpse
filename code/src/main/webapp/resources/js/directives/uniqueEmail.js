@@ -5,7 +5,7 @@ glimpse.directive('uniqueEmail', function($http) {
         link: function(scope, element, attrs, ngModel) {
           element.bind('blur', function() {
             if (ngModel.$modelValue) {
-              $http.get('/glimpse/api/users', { params: { email: ngModel.$modelValue } }).success(function(data) {
+              $http.get('/api/users', { params: { email: ngModel.$modelValue } }).success(function(data) {
                 ngModel.$setValidity('unique', data.available);
               });
             }
