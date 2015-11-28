@@ -15,16 +15,32 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
 		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-
+   
     <aop:aspectj-autoproxy />
     
 	<context:annotation-config />
 	<context:component-scan base-package="com.group4.glimpse" />
 	
-	<mvc:annotation-driven />
-	
+	<!-- Simple strategy: only path extension is taken into account -->
+	<bean id="cnManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="true"/>
+		<property name="favorParameter" value="true" />
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="defaultContentType" value="application/json" />
+		<property name="useJaf" value="false"/>
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />
+			</map>
+		</property>
+	</bean>
+	<mvc:annotation-driven content-negotiation-manager="cnManager"/>
+		
 	 <bean id="ViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
@@ -66,7 +82,9 @@
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 
+	<bean id="userServiceImpl" class="com.group4.glimpse.service.impl.UserServiceImpl"/>
+						
+	<bean id="userDAOImpl" class="com.group4.glimpse.dao.impl.UserDAOImpl"/>
 	
 </beans>

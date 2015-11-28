@@ -10,6 +10,14 @@ public interface UserDAO {
 	 * @return
 	 */
 	public User create(User user);
+	
+	/**
+	 * create/signin user bu google auth
+	 * @param user
+	 * @return
+	 */
+	public User createByAuth(User user);
+	
 
 	/**
 	 * get an user's email
@@ -17,5 +25,5 @@ public interface UserDAO {
 	 * @return
 	 */
 	public User readEmail(String email);
-
+	
 }

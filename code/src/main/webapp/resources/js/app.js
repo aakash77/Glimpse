@@ -1,18 +1,22 @@
-var glimpse = angular.module("Glimpse", [ 'ngRoute', 'ngMessages', 'ngAnimate', 'ui.bootstrap', 'mgcrea.ngStrap' ])
-	.config(function($routeProvider, $locationProvider) {
-		 $locationProvider.html5Mode(true);
-	
-		 $routeProvider
-	     .when('/', {
-	       templateUrl: 'glimpse/login',
-	       controller: 'LoginController'
-	     })
-	     .when('/home', {
-	       templateUrl: 'glimpse/home',
-	       controller: 'UserHomeController'
-	      })
-	     .otherwise({
-		   redirectTo : '/'
-		});
-	})	 
-	 
+var glimpse = angular.module("Glimpse", [ 'ui.bootstrap', 'ngMessages', 'ngRoute', 'ngAnimate', 'mgcrea.ngStrap','directive.g+signin'])
+.config(function($routeProvider, $locationProvider) {
+
+	/**to remove hash in the URL**/
+	$locationProvider.html5Mode({
+		enabled : true,
+		requireBase : false
+	});
+
+	$routeProvider
+	.when('/', {
+		templateUrl: 'glimpse/login',
+		controller: 'LoginController'
+	})
+	.when('/home', {
+		templateUrl: 'glimpse/home',
+		controller: 'UserHomeController'
+	})
+	.otherwise({
+		redirectTo : '/'
+	});
+})	 

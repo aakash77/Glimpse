@@ -26,7 +26,6 @@ public class ProjectDAOImpl implements ProjectDAO {
 		Session session = sessionFactory.openSession();
 		Transaction tx =  session.beginTransaction();
 		try{
-			//person.setFriends(friends);
 			session.save(project);
 			tx.commit();
 		}

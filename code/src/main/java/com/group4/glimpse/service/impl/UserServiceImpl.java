@@ -22,8 +22,18 @@ public class UserServiceImpl implements UserService {
 		return userDAO.create(user);
 	}
 
+	/**
+	 * Service Implementation to get a User by email
+	 */
 	public User readEmail(String email) {
 		return userDAO.readEmail(email);
+	}
+
+	/**
+	 * Service Implementation of creating/sign in user bu google auth
+	 */
+	public User createByAuth(User user) {
+		return userDAO.createByAuth(user);
 	}
 
 

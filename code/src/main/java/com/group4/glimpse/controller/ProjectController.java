@@ -30,7 +30,7 @@ public class ProjectController {
 	public ResponseEntity<Project> addProject(@ModelAttribute Project project,
 			@ModelAttribute User user,
 			@ModelAttribute Project_State state){	
-			
+					
 			Project_State state_planning =  new Project_State();
 			state_planning.setProject_state_id(1);
 			
