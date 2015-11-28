@@ -21,46 +21,40 @@ public class UserController {
 	UserService userService;
 
 	@RequestMapping(value = "/api/login",method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity<User> getUser(@RequestBody User user){
-		
-		User valid_user = userService.readEmail(user.getEmail());
-		if(valid_user==null)
-			return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);		
+	@ResponseBody
+	public ResponseEntity<User> getUser(@RequestBody User user){
 
-		/*if(passwordEncoder.matches(user.getPassword(), valid_user.getPassword()))
+		User valid_user = userService.getUser(user);
+		if(valid_user==null)
+			return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);		
+		else{
+			user.setPassword(null);
 			return new ResponseEntity<User>(user, HttpStatus.OK);
-		else
-			return new ResponseEntity<User>(user, HttpStatus.UNAUTHORIZED);*/
-		return null;
+		}
 	}
 
 	@RequestMapping(value = "/api/signup",method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity<User> addUser(@RequestBody User user){		
-		
-/*		String hashedPassword = passwordEncoder.encode(user.getPassword());
-		user.setPassword(hashedPassword);
-*/		
+	@ResponseBody
+	public ResponseEntity<User> addUser(@RequestBody User user){		
+
 		user = userService.create(user);
+		user.setPassword(null);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/auth/google",method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity<User> addUserByAuth(@RequestBody User user){
 
-		System.out.println("in auth google");
+	@RequestMapping(value = "/auth/google",method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<User> addUserByAuth(@RequestBody User user){
+
 		user = userService.createByAuth(user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/api/users",method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<String> checkUniqueEmail(@ModelAttribute User user){
-				
+	@ResponseBody
+	public ResponseEntity<String> checkUniqueEmail(@ModelAttribute User user){
+
 		User existing_user = userService.readEmail(user.getEmail());
-		System.out.println(existing_user);
 		if(existing_user==null)
 			return new ResponseEntity<String>("{ \"available\": true}", HttpStatus.OK);
 		else

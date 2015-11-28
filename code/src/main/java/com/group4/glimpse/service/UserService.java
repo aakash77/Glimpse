@@ -19,6 +19,12 @@ public interface UserService {
 	 */
 	public User createByAuth(User user);
 	
+	/**
+	 * get a user
+	 * @param user
+	 * @return
+	 */
+	public User getUser(User user);
 	
 	/**
 	 * get an user's email
