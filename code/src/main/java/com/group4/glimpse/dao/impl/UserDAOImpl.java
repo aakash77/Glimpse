@@ -27,7 +27,9 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.openSession();
 		Transaction tx =  session.beginTransaction();
 		try{
+			System.out.println("before creating user");
 			session.save(user);
+			System.out.println("after creating user");
 			tx.commit();
 		} catch(HibernateException h) {
 			tx.rollback();
@@ -64,16 +66,14 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	/**
-	 * DAO implementation of creating/sign in a user
+	 * DAO implementation of updating a user
 	 */
-	public User createByAuth(User user) {
+	public User update(User user) {
 
 		Session session = sessionFactory.openSession();
 		Transaction tx =  session.beginTransaction();
 		try{
-			System.out.println("before update");
-			session.saveOrUpdate(user);
-			System.out.println("after update");
+			session.update(user);
 			tx.commit();
 		} catch(HibernateException h) {
 			tx.rollback();

@@ -7,6 +7,8 @@ public interface UserService {
 
 	/**
 	 * create a new user
+	 * @param user
+	 * @return
 	 */
 	public User create(User user);
 	

@@ -12,11 +12,11 @@ public interface UserDAO {
 	public User create(User user);
 	
 	/**
-	 * create/signin user bu google auth
+	 * update a user
 	 * @param user
 	 * @return
 	 */
-	public User createByAuth(User user);
+	public User update(User user);
 	
 
 	/**

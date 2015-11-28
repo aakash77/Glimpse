@@ -37,8 +37,7 @@ public class UserController {
 
 	@RequestMapping(value = "/api/signup",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<User> addUser(@RequestBody User user){
-		
+    public ResponseEntity<User> addUser(@RequestBody User user){		
 		
 /*		String hashedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(hashedPassword);
@@ -51,12 +50,11 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<User> addUserByAuth(@RequestBody User user){
 
-		
+		System.out.println("in auth google");
 		user = userService.createByAuth(user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
-
 	@RequestMapping(value = "/api/users",method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<String> checkUniqueEmail(@ModelAttribute User user){
