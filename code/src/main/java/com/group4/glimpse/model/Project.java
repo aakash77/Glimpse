@@ -18,8 +18,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
 @Entity
 @Table(name="project")
 public class Project {

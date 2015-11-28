@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
 
 @Entity
 @Table(name="user", uniqueConstraints = { @UniqueConstraint(columnNames = {
@@ -27,7 +25,7 @@ public class User {
 	@Column(name="email",nullable=false)
     private String email;
 
-	@Column(name="password",nullable=false)
+	@Column(name="password")
 	private String password;
 	
 	
