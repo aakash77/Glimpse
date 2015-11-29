@@ -24,6 +24,13 @@
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/angular/angular-strap.tpl.js"></script>
 
+<!-- Angular ngTable -->
+<script
+	src="${pageContext.request.contextPath}/resources/vendor/ngtable/ng-table.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/vendor/ngtable/ng-table.css">
+
+ 
 <!-- Include the jQuery library -->
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
