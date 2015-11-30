@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.group4.glimpse.dao.UserDAO;
+import com.group4.glimpse.model.Project;
 import com.group4.glimpse.model.User;
 
 @Repository
@@ -27,9 +28,7 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.openSession();
 		Transaction tx =  session.beginTransaction();
 		try{
-			System.out.println("before creating user");
 			session.save(user);
-			System.out.println("after creating user");
 			tx.commit();
 		} catch(HibernateException h) {
 			tx.rollback();
@@ -81,6 +80,43 @@ public class UserDAOImpl implements UserDAO {
 			session.close();
 		}
 		return user;		
+	}
+
+	@Override
+	public List<Project> getProjects(User user) {
+		Session session = sessionFactory.openSession();
+		Transaction tx =  session.beginTransaction();
+		List<Project> projects = null;
+		try{
+			String hql = "FROM com.group4.glimpse.model.Project as p where :user in elements(p.team)";
+			Query query = session.createQuery(hql);
+			query.setEntity("user", user);
+			projects = query.list();
+			tx.commit();
+		} catch(HibernateException h) {
+			tx.rollback();
+		} finally {
+			session.close();
+		}
+		return projects;
+	}
+
+	@Override
+	public User getUser(long id) {
+		
+		
+		Session session = sessionFactory.openSession();
+		Transaction tx =  session.beginTransaction();
+		User user = null;
+		try{
+			user = (User)session.get(User.class,id);
+			tx.commit();
+		} catch(HibernateException h){
+			tx.rollback();
+		} finally{
+			session.close();
+		}
+		return user;
 	}
 
 }

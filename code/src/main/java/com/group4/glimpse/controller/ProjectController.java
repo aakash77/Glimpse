@@ -42,6 +42,8 @@ public class ProjectController {
 			//TODO: Set current user as the owner
 			project.setOwner(user);
 			
+			project.getTeam().add(user);
+			
 			project = projectService.create(project);
 					
 			return new ResponseEntity<Project>(project, HttpStatus.OK);	

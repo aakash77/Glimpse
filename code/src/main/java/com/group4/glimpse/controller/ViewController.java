@@ -2,12 +2,13 @@ package com.group4.glimpse.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping(value = "/")
-public class HomeController {
+public class ViewController {
 
 	/**
 	 * Home Page
@@ -31,5 +32,16 @@ public class HomeController {
 		return "signup";
 	}
 	
+	@RequestMapping(value = "home", method = RequestMethod.GET)
+	public String getHomePage( Model model) {
+		System.out.println("Home");
+		return "home";
+	}
+	
+	@RequestMapping(value = "partials/{page}", method = RequestMethod.GET)
+	public String getPage(Model model, @PathVariable String page) {
+		System.out.println("Page "+page);
+		return page;
+	}
 	
 }
