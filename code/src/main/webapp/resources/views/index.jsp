@@ -24,12 +24,11 @@
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/angular/angular-strap.tpl.js"></script>
 
-<%-- <!-- Angular ngTable -->
+<!-- Angular ngTable -->
 <script
-	src="${pageContext.request.contextPath}/resources/vendor/ngtable/ng-table.js"></script>
+	src="${pageContext.request.contextPath}/resources/vendor/ngtable/ng-table.min.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/vendor/ngtable/ng-table.css">
- --%>
+	href="${pageContext.request.contextPath}/resources/vendor/ngtable/ng-table.min.css">
 
 <!-- Include the jQuery library -->
 <script
@@ -72,6 +71,8 @@
 		src="${pageContext.request.contextPath}/resources/js/controllers/SignUpController.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/controllers/HomeController.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/controllers/ProjectController.js"></script>
 
 	<!-- Directives -->
 	<script

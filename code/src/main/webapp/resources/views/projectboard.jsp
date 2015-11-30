@@ -1,3 +1,6 @@
-<div>
-Your Current projects
+<div id="middle" ng-controller="ProjectController"
+	ng-init="getProjectDetails()">
+	
+	
+	
 </div>

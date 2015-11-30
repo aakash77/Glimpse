@@ -9,25 +9,27 @@
 				<small>A Project Manager</small>
 			</p>
 		</div>
-		<div class="col-lg-4 col-md-4 col-xs-4" 
-			style="padding-top: 1.5%; left: 10%;">
-			<div class="col-xs-4">
-				<h4 class="add-on">
-					<span class="add-on glyphicon glyphicon-user"></span>Welcome
-					{{currentUser.name}}
-				</h4>
-			</div>
 
-			<div class="col-xs-6">
-				<a href="javascript:void(0)" ng-click="logout()"><h4
-						class="add-on">Logout</h4></a>
-			</div>
-		</div>
+		<ul class="nav navbar-nav navbar-right" style="padding-top: 1.5%;">
+			<li><a href="#">{{currentUser.name}}</a></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown" role="button" aria-expanded="false"> <span
+					class="caret"></span> <span class="glyphicon glyphicon-user"
+					aria-hidden="true"></span>
+			</a>
+
+				<ul class="dropdown-menu" role="menu">
+					<li class="cursor"><a href="#" ng-click="userProfile()">Profile</a></li>
+
+					<li class="divider"></li>
+					<li class="cursor"><a href="javascript:void(0)"
+						ng-click="logout()">Logout</a></li>
+				</ul></li>
+		</ul>
+
+
 	</div>
 
 	<div ng-include="templateView"><</div>
 
 </div>
-
-
-

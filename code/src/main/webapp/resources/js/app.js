@@ -1,4 +1,4 @@
-var glimpse = angular.module("Glimpse", [ 'ui.bootstrap', 'ngMessages', 'ngRoute', 'ngAnimate', 'mgcrea.ngStrap','directive.g+signin'])
+var glimpse = angular.module("Glimpse", [ 'ui.bootstrap', 'ngMessages','ngRoute', 'ngTable', 'ngAnimate', 'mgcrea.ngStrap','directive.g+signin'])
 .config(function($routeProvider, $locationProvider) {
 
 	/**to remove hash in the URL**/
