@@ -50,6 +50,14 @@ public class Project {
 	private List<User> team = new ArrayList<User>();
 	
 		
+	public List<User> getTeam() {
+		return team;
+	}
+
+	public void setTeam(List<User> team) {
+		this.team = team;
+	}
+
 	/**
 	 * @return the project_id
 	 */

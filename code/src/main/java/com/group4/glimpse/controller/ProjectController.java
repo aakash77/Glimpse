@@ -2,6 +2,7 @@ package com.group4.glimpse.controller;
 
 import java.security.acl.Owner;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.group4.glimpse.model.Project;
 import com.group4.glimpse.model.Project_State;
 import com.group4.glimpse.model.User;
+import com.group4.glimpse.service.EmailSender;
 import com.group4.glimpse.service.ProjectService;
 
 @Controller
@@ -33,7 +35,7 @@ public class ProjectController {
 					
 			Project_State state_planning =  new Project_State();
 			state_planning.setProject_state_id(1);
-			
+		
 			//When a project is just created, its status is planning.
 			if(project.getState()==null){
 			project.setState(state_planning);
@@ -41,6 +43,8 @@ public class ProjectController {
 			
 			//TODO: Set current user as the owner
 			project.setOwner(user);
+			
+			project.getTeam().add(user);
 			
 			project = projectService.create(project);
 					
@@ -98,6 +102,5 @@ public class ProjectController {
 
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
-
 
 }
