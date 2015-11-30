@@ -18,10 +18,10 @@ public interface InvitationService {
 	/**
 	 * delete Invitation
 	 */
-	public Invitations delete(long project_id);
+	public Invitations delete(long invitation_id);
 
 	/**
 	 * read Invitation
 	 */
-	public Invitations read(long project_id);
+	public Invitations read(long invitation_id);
 }

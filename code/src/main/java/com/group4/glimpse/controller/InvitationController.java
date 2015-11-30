@@ -33,12 +33,13 @@ public class InvitationController {
 	
 	@RequestMapping(value="/invitation/send", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<String> sendInvitation(@RequestParam("sendTo") String sendTo, @RequestParam("projectId") long projectId ){
-				
-		Project project = projectService.read(projectId);
-		User receiver = userService.readEmail(sendTo);
+//	public ResponseEntity<String> sendInvitation(@RequestParam("sendTo") String sendTo, @RequestParam("projectId") long projectId ){
+	public ResponseEntity<String> sendInvitation(@RequestParam("sendTo") String[] sendTo, @RequestParam("projectId") long projectId ){
 		
+		Project project = projectService.read(projectId);
 
+		for(String send:sendTo){
+		User receiver = userService.readEmail(send);
 		Invitations invitation = new Invitations();
 		invitation.setProject(project);
 		invitation.setReceiver(receiver);
@@ -48,12 +49,14 @@ public class InvitationController {
 		invitation.setSender(currentUser);
 		
 		invitation.setStatus("pending");
-		
 		invitation = invitationService.create(invitation);
 		
-		emailSender.sendMail(sendTo, "InvitationToCollaborate", invitation.getInvitation_id(), projectId);
+		emailSender.sendMail(send, "InvitationToCollaborate", invitation.getInvitation_id(), projectId);
+		
+		}
 		
 		return new ResponseEntity<String>("Invitation Sent ! ", HttpStatus.OK);
+	
 	}
 	
 	@RequestMapping(value = "/invitation/accept" ,  method=RequestMethod.GET)
