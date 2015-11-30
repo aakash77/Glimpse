@@ -49,14 +49,6 @@ public class Project {
         inverseJoinColumns = @JoinColumn(name = "user",referencedColumnName="id"))
 	private List<User> team = new ArrayList<User>();
 	
-		
-	public List<User> getTeam() {
-		return team;
-	}
-
-	public void setTeam(List<User> team) {
-		this.team = team;
-	}
 
 	/**
 	 * @return the project_id
@@ -126,6 +118,20 @@ public class Project {
 	 */
 	public void setState(Project_State state) {
 		this.state = state;
+	}
+	
+	/**
+	 * @return the team
+	 */
+	public List<User> getTeam() {
+		return team;
+	}
+
+	/**
+	 * @param team the team to set
+	 */
+	public void setTeam(List<User> team) {
+		this.team = team;
 	}
 	
 }

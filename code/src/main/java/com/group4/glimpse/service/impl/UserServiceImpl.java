@@ -1,10 +1,13 @@
 package com.group4.glimpse.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.group4.glimpse.dao.UserDAO;
+import com.group4.glimpse.model.Project;
 import com.group4.glimpse.model.User;
 import com.group4.glimpse.service.UserService;
 import com.group4.glimpse.util.PasswordHash;
@@ -39,7 +42,9 @@ public class UserServiceImpl implements UserService {
 	 */
 	public User getUser(User user){
 		User valid_user = userDAO.readEmail(user.getEmail());
+
 		System.out.println(valid_user.getPassword());
+
 		if(valid_user!=null){
 			if(!(passwordHash.checkPassword(user.getPassword(),valid_user.getPassword())))
 				return null;
@@ -58,6 +63,16 @@ public class UserServiceImpl implements UserService {
 			user.setId(u.getId());
 			return userDAO.update(user);
 		}
+	}
+	
+	/**
+	 * Service Implementation to get projects of an user
+	 */
+	@Override
+	public List<Project> getProjects(long id) {
+		
+		User user = userDAO.getUser(id);
+		return userDAO.getProjects(user);
 	}
 
 
