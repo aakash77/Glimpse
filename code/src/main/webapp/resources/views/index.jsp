@@ -70,6 +70,8 @@
 		src="${pageContext.request.contextPath}/resources/js/controllers/ProjectController.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/controllers/AddMemberCtrl.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/controllers/ProjectHomeController.js"></script>
 
 	<!-- Directives -->
 	<script

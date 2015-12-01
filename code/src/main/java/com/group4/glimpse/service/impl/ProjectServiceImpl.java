@@ -1,11 +1,14 @@
 package com.group4.glimpse.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.group4.glimpse.dao.ProjectDAO;
 import com.group4.glimpse.model.Project;
+import com.group4.glimpse.model.Task;
 import com.group4.glimpse.service.ProjectService;
 
 @Service
@@ -35,6 +38,11 @@ public class ProjectServiceImpl implements ProjectService {
 		else{
 			return projectDAO.delete(project);
 		}
+	}
+
+	@Override
+	public List<Task> getAllTasks(long project_id) {
+		return projectDAO.getAllTasks(project_id);
 	}
 
 

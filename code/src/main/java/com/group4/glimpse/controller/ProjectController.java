@@ -1,8 +1,7 @@
 package com.group4.glimpse.controller;
 
-import java.security.acl.Owner;
+import java.util.List;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.group4.glimpse.model.Project;
 import com.group4.glimpse.model.Project_State;
+import com.group4.glimpse.model.Task;
 import com.group4.glimpse.model.User;
-import com.group4.glimpse.service.EmailSender;
 import com.group4.glimpse.service.ProjectService;
 
 @Controller
@@ -101,6 +100,14 @@ public class ProjectController {
 		return new ResponseEntity<Project>(project, HttpStatus.NOT_FOUND);
 
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/{project_id}/tasks",method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List> getAllUsers(@PathVariable long project_id){
+		System.err.println(project_id);
+		List<Task> tasks = projectService.getAllTasks(project_id);
+		return new ResponseEntity<List>(tasks, HttpStatus.OK);
 	}
 
 }

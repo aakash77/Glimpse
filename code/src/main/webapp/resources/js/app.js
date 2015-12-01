@@ -16,6 +16,10 @@ var glimpse = angular.module("Glimpse", [ 'ui.bootstrap', 'ngMessages','ngRoute'
 		templateUrl: 'glimpse/home',
 		controller: 'HomeController'
 	})
+	.when('/home/:id', {
+		templateUrl: 'glimpse/home',
+		controller: 'HomeController'
+	})
 	.otherwise({
 		redirectTo : '/'
 	});

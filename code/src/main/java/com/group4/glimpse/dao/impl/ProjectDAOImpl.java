@@ -1,7 +1,10 @@
 package com.group4.glimpse.dao.impl;
 
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.group4.glimpse.dao.ProjectDAO;
 import com.group4.glimpse.model.Project;
+import com.group4.glimpse.model.Task;
 
 @Repository
 public class ProjectDAOImpl implements ProjectDAO {
@@ -91,5 +95,27 @@ public class ProjectDAOImpl implements ProjectDAO {
 			session.close();
 		}
 		return project;
+	}
+
+
+	@Override
+	public List<Task> getAllTasks(long project_id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx =  session.beginTransaction();
+		List<Task> tasks = null;
+		try{			
+			String hql = "FROM com.group4.glimpse.model.Task as t where t.project_id = :project_id";
+			Query query = session.createQuery(hql);
+			query.setLong("project_id", project_id);
+			tasks = query.list();
+			tx.commit();
+		}
+		catch(HibernateException h){
+			h.printStackTrace();
+			tx.rollback();
+		}finally{
+			session.close();
+		}
+		return tasks;
 	}
 }

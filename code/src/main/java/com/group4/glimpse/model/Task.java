@@ -21,7 +21,7 @@ public class Task {
 
 	@ManyToOne
 	@JoinColumn(name="project_id")
-	private Project project;
+	private Project project_id;
 	
 	@Column(name="title")
 	private String title;
@@ -61,14 +61,14 @@ public class Task {
 	 * @return the project
 	 */
 	public Project getProject() {
-		return project;
+		return project_id;
 	}
 
 	/**
 	 * @param project the project to set
 	 */
 	public void setProject(Project project) {
-		this.project = project;
+		this.project_id = project;
 	}
 
 	/**

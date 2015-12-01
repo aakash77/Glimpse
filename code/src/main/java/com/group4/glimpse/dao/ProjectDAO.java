@@ -1,6 +1,9 @@
 package com.group4.glimpse.dao;
 
+import java.util.List;
+
 import com.group4.glimpse.model.Project;
+import com.group4.glimpse.model.Task;
 
 
 public interface ProjectDAO {
@@ -29,4 +32,10 @@ public interface ProjectDAO {
 	 * @return deleted entry of project
 	 */
 	public Project delete(Project project);
+	
+	/**
+	 * get all project tasks
+	 * @return deleted entry of project
+	 */
+	public List<Task> getAllTasks(long project_id);
 }

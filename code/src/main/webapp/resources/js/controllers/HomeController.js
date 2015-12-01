@@ -1,4 +1,4 @@
-glimpse.controller('HomeController', function($scope,$location, $rootScope, Auth, DataService, $window) {
+glimpse.controller('HomeController', function($scope,$location, $rootScope, $routeParams, Auth, DataService, $window) {
 
 	/**ng init for rendering templateView**/
 	$scope.getUserDetails = function() {
@@ -6,8 +6,14 @@ glimpse.controller('HomeController', function($scope,$location, $rootScope, Auth
 		$scope.currentUser = {name : $window.localStorage.currentUserName,
 				email : $window.localStorage.currentUserEmail,
 				user_id : $window.localStorage.currentUserId};
-
-		$scope.templateView = "glimpse/partials/projectboard";
+		
+		if(!$routeParams.id){
+			$scope.templateView = "/glimpse/partials/projectboard";
+		}else{
+			console.log("Redirect to project home");
+			$scope.templateView = "/glimpse/partials/projecthome";
+		}
+		
 
 	};
 

@@ -57,7 +57,7 @@ glimpse.factory('Auth', function($http, $location, $rootScope, $alert, $window) 
 				url : dataURI,
 				data : params
 			})
-			.success(function() {
+			.success(function(data) {
 				$window.localStorage.currentUserEmail = data.email;
 				$window.localStorage.currentUserId = data.id;
 				$window.localStorage.currentUserName = data.name;
