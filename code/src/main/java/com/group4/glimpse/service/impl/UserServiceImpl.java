@@ -75,5 +75,11 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getProjects(user);
 	}
 
+	@Override
+	public List<User> getAllUsers() {
+	
+		return userDAO.getAllUsers();
+	}
+
 
 }

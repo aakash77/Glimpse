@@ -103,8 +103,6 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public User getUser(long id) {
-		
-		
 		Session session = sessionFactory.openSession();
 		Transaction tx =  session.beginTransaction();
 		User user = null;
@@ -117,6 +115,24 @@ public class UserDAOImpl implements UserDAO {
 			session.close();
 		}
 		return user;
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		Session session = sessionFactory.openSession();
+		Transaction tx =  session.beginTransaction();
+		List<User> users=null;
+		try{
+			String hql = "FROM com.group4.glimpse.model.User as u" ;
+			Query query = session.createQuery(hql);
+			users = query.list();		
+			tx.commit();
+		} catch(HibernateException h){
+			tx.rollback();
+		} finally{
+			session.close();
+		}
+		return users;
 	}
 
 }

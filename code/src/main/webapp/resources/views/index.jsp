@@ -9,16 +9,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glimpse</title>
 
-
 <!-- Angular -->
 <script
-	src="${pageContext.request.contextPath}/resources/vendor/angular/angular.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script
-	src="${pageContext.request.contextPath}/resources/vendor/angular/angular-messages.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-messages.min.js"></script>
 <script
-	src="${pageContext.request.contextPath}/resources/vendor/angular/angular-route.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js"></script>
 <script
-	src="${pageContext.request.contextPath}/resources/vendor/angular/angular-animate.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-animate.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/angular/angular-strap.js"></script>
 <script
@@ -44,11 +43,7 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/vendor/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/vendor/bootstrap/ui-bootstrap-0.12.0.js"></script>
-
-<!-- Google Auth -->
-<script
-	src="${pageContext.request.contextPath}/resources/js/directives/google-plus-signin.js"></script>
+	src="${pageContext.request.contextPath}/resources/vendor/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script>
 
 <!--Application CSS-->
 <link rel="stylesheet" type="text/css"
@@ -73,17 +68,20 @@
 		src="${pageContext.request.contextPath}/resources/js/controllers/HomeController.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/controllers/ProjectController.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/controllers/AddMemberCtrl.js"></script>
 
 	<!-- Directives -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/directives/uniqueEmail.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/directives/google-plus-signin.js"></script>
 
 	<!-- Services -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/services/auth.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/services/dataService.js"></script>
-
 
 	<!-- Utility -->
 	<script

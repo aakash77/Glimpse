@@ -42,6 +42,8 @@ public interface UserService {
 	 * @return
 	 */
 	public List<Project> getProjects(long id);
+
+	public List<User> getAllUsers();
 	
 	
 }

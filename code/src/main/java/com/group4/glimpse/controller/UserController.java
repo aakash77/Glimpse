@@ -24,6 +24,13 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	@RequestMapping(value="/user",method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List> getAllUsers(){
+		List<User> users = userService.getAllUsers();
+		return new ResponseEntity<List>(users, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/api/login",method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<User> getUser(@RequestBody User user){
@@ -64,7 +71,7 @@ public class UserController {
 		else
 			return new ResponseEntity<String>("{ \"available\": false}", HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Get projects of a user
 	 * @param user
@@ -73,9 +80,10 @@ public class UserController {
 	@RequestMapping(value = "/api/{id}/projects",method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<List> getProjects(@PathVariable long id){
-		
+
 		List<Project> projects = userService.getProjects(id);
 		return new ResponseEntity<List>(projects, HttpStatus.OK);
-		
+
 	}
+
 }
