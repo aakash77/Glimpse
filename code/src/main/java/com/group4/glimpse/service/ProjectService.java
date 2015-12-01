@@ -1,6 +1,9 @@
 package com.group4.glimpse.service;
 
+import java.util.List;
+
 import com.group4.glimpse.model.Project;
+import com.group4.glimpse.model.Task;
 
 public interface ProjectService {
 
@@ -23,4 +26,9 @@ public interface ProjectService {
 	 * read Project
 	 */
 	public Project read(long project_id);
+	
+	/*
+	 * get all tasks
+	 */
+	public List<Task> getAllTasks(long project_id);
 }

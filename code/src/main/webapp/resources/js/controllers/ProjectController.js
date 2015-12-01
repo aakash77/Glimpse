@@ -1,4 +1,4 @@
-glimpse.controller('ProjectController', function($scope, DataService, NgTableParams, $window,$uibModal) {
+glimpse.controller('ProjectController', function($scope, $location, DataService, NgTableParams, $window,$uibModal) {
 
 	var pc = this;
 
@@ -18,10 +18,14 @@ glimpse.controller('ProjectController', function($scope, DataService, NgTablePar
 		});	
 	};
 
-	pc.checkOwner = function(user){
-		return user.owner.id == $scope.currentUser.user_id;
+	pc.checkOwner = function(project){
+		return project.owner.id == $scope.currentUser.user_id;
 	};
-
+	
+	pc.openProjectHome = function(project){
+		$location.path("/home/"+project.project_id);
+	};
+	
 	pc.addMember = function(project){
 		var modalInstance = $uibModal.open({
 			templateUrl : 'glimpse/partials/addMember',
