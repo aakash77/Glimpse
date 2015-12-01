@@ -32,6 +32,7 @@
 <!-- Include the jQuery library -->
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <!--Bootstrap CSS-->
 <link rel="stylesheet" type="text/css"
@@ -78,6 +79,7 @@
 		src="${pageContext.request.contextPath}/resources/js/directives/uniqueEmail.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/directives/google-plus-signin.js"></script>
+	
 
 	<!-- Services -->
 	<script
