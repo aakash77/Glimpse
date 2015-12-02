@@ -69,10 +69,12 @@
 		src="${pageContext.request.contextPath}/resources/js/controllers/HomeController.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/controllers/ProjectController.js"></script>
-	<script
+	<script	
 		src="${pageContext.request.contextPath}/resources/js/controllers/AddMemberCtrl.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/controllers/ProjectHomeController.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/controllers/AddProjectCtrl.js"></script>
 
 	<!-- Directives -->
 	<script

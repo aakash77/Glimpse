@@ -20,6 +20,9 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
+
+	public User read(long id);
+	
 	public User createByAuth(User user);
 	
 	/**

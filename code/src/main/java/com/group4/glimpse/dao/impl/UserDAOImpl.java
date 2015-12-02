@@ -135,4 +135,21 @@ public class UserDAOImpl implements UserDAO {
 		return users;
 	}
 
+	@Override
+	public User read(long id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx =  session.beginTransaction();
+		User user = null;
+		try{
+			user = (User) session.get(User.class, id);
+			tx.commit();
+		} catch(HibernateException h) {
+			tx.rollback();
+		} finally {
+			session.close();
+		}
+		return user;
+
+	}
+
 }

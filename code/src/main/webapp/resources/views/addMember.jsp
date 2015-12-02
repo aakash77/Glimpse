@@ -20,7 +20,7 @@
 				</div>
 			</div>
 
-			<div class="row" stydle="margin-left: auto;">
+			<div class="row" style="margin-left: auto;">
 				<div class="col-xs-6">
 					<h4>Project Members</h4>
 					<div class="row" ng-repeat="members in amc.projectUsers">
