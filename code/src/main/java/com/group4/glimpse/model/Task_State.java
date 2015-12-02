@@ -16,7 +16,6 @@ public class Task_State {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long task_state_id;
 	
-	@Id
 	@Column(name="value",unique=true)
 	private String value;
 
