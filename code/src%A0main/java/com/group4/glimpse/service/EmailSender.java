@@ -39,20 +39,21 @@ public class EmailSender {
 	        mailSender.send(message);
 	        
 	    }
-	 
+	    
 	    public void sendMail(String to, String subject, long idEmailValidation)
 	    {
-
-	    	String messageBody = "Please validate your email address for" +
-	    			"To accept the invitation click on the below link" + "\n" 
-	    			+ "http:" + "/" + "/" + "localhost:8080" + "/" + "glimpse/validate" + "?"
-	    			+ "idEmailValidation" + "=" + idEmailValidation ;
-
-	    	SimpleMailMessage message = new SimpleMailMessage();
-	    	message.setTo(to);
-	    	message.setSubject(subject);
-	    	message.setText(messageBody);
-	    	mailSender.send(message);
-
+	    	
+	        String messageBody = "Please validate your email address for" +
+	    	                      "To accept the invitation click on the below link" + "\n" 
+	    	                      + "http:" + "/" + "/" + "localhost:8080" + "/" + "glimpse/validate" + "?"
+	    	                      + "idEmailValidation" + "=" + idEmailValidation ;
+	        
+	        SimpleMailMessage message = new SimpleMailMessage();
+	        message.setTo(to);
+	        message.setSubject(subject);
+	        message.setText(messageBody);
+	        mailSender.send(message);
+	        
 	    }
+	 
 }
