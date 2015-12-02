@@ -24,14 +24,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-animate.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/vendor/angular/angular-strap.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/vendor/angular/angular-strap.tpl.js"></script>
+
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/bower_components/angular-ui-sortable/sortable.min.js"></script>
-
-
 
 <!-- Angular ngTable -->
 <script
@@ -50,6 +45,10 @@
 	src="${pageContext.request.contextPath}/resources/vendor/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/vendor/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script>
+
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
 <!--Application CSS-->
 <link rel="stylesheet" type="text/css"
@@ -85,9 +84,6 @@
 <!-- Directives -->
 <script
 	src="${pageContext.request.contextPath}/resources/js/directives/uniqueEmail.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/directives/google-plus-signin.js"></script>
-
 
 <!-- Services -->
 <script
@@ -106,5 +102,6 @@
 	<div class="main">
 		<div data-ng-view></div>
 	</div>
+
 </body>
 </html>
