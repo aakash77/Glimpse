@@ -9,6 +9,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glimpse</title>
 
+<!-- Include the jQuery library -->
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
 <!-- Angular -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
@@ -22,17 +28,16 @@
 	src="${pageContext.request.contextPath}/resources/vendor/angular/angular-strap.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/angular/angular-strap.tpl.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/vendor/bower_components/angular-ui-sortable/sortable.min.js"></script>
+
+
 
 <!-- Angular ngTable -->
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/ngtable/ng-table.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/vendor/ngtable/ng-table.min.css">
-
-<!-- Include the jQuery library -->
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <!--Bootstrap CSS-->
 <link rel="stylesheet" type="text/css"
@@ -72,7 +77,11 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/js/controllers/AddMemberCtrl.js"></script>
 	<script
+		src="${pageContext.request.contextPath}/resources/js/controllers/TaskController.js"></script>
+	<script
 		src="${pageContext.request.contextPath}/resources/js/controllers/ProjectHomeController.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/controllers/ActualDaysController.js"></script>
 
 	<!-- Directives -->
 	<script

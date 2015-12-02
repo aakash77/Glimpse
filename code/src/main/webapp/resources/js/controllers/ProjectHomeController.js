@@ -1,21 +1,53 @@
 glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataService, NgTableParams, $window,$uibModal) {
 
 	var phc = this;
-	console.log($routeParams.id);
+	var tmpList = [];
+	
+	// set fallback arrays
+	var beforeUpdatenewTasks = [];
+	var beforeUpdateassignedTasks = [];
+	var beforeUpdatestartedTasks = [];
+	var beforeUpdatefinishedTasks = [];
+	var beforeUpdatecanceledTasks = [];
+	$scope.revert = false;
+	
+	$scope.newTasks = [];
+	$scope.assignedTasks = [];
+	$scope.startedTasks = [];
+	$scope.finishedTasks = [];
+	$scope.canceledTasks = [];
+	
+	
 	/**ng init for fetching all projects of an user**/
 	phc.getProjectDetails = function() {
 		$scope.currentUser = {name : $window.localStorage.currentUserName,
 				email : $window.localStorage.currentUserEmail,
 				user_id : $window.localStorage.currentUserId};
-		console.log($routeParams.id);
+		
 		// get users project details
 		DataService.getData("/glimpse/project/"+$routeParams.id,[])
 		.success(function(data) {
 			$scope.projectDetails = data;
+			// get project tasks
+			
+			$scope.ownerId =  data.owner.id
 			DataService.getData("/glimpse/project/"+$routeParams.id+"/tasks")
 			.success(function(data) {
-				console.log(data);
-				$scope.projectTasks = data;
+				console.log("tasks",data);
+				//assign tasks by task state
+				
+				for(var i=0;i<data.length;i++){
+					if(data[i].state.value=="new")
+						$scope.newTasks.push(data[i]);
+					else if(data[i].state.value=="assigned")
+						$scope.assignedTasks.push(data[i]);
+					else if(data[i].state.value=="started")
+						$scope.startedTasks.push(data[i]);
+					else if(data[i].state.value=="finished")
+						$scope.finishedTasks.push(data[i]);
+					else if(data[i].state.value=="cancelled")
+						$scope.canceledTasks.push(data[i]);
+				}				
 			})
 			.error(function(err){
 				console.log("Error while getting all tasks of the project");
@@ -24,49 +56,147 @@ glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataS
 			console.log("Error getting the project details");
 		});	
 	};
-
-	    // new imple
-	    $( ".tasklane" ).sortable({
-	        connectWith: ".tasklane",
-	        handle: ".portlet-header",
-	        cancel: ".portlet-toggle",
-	        start: function (event, ui) {
-	            ui.item.addClass('tilt');
-	            tilt_direction(ui.item);
-	        },
-	        stop: function (event, ui) {
-	            ui.item.removeClass("tilt");
-	            $("html").unbind('mousemove', ui.item.data("move_handler"));
-	            ui.item.removeData("move_handler");
-	        }
-	    });
-	    
-	    function tilt_direction(item) {
-	        var left_pos = item.position().left,
-	            move_handler = function (e) {
-	                if (e.pageX >= left_pos) {
-	                    item.addClass("right");
-	                    item.removeClass("left");
-	                } else {
-	                    item.addClass("left");
-	                    item.removeClass("right");
-	                }
-	                left_pos = e.pageX;
-	            };
-	        $("html").bind("mousemove", move_handler);
-	        item.data("move_handler", move_handler);
-	    }  
-
-	    $( ".portlet" )
-	        .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
-	        .find( ".portlet-header" )
-	        .addClass( "ui-widget-header ui-corner-all" )
-	        .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
-
-	    $( ".portlet-toggle" ).click(function() {
-	        var icon = $( this );
-	        icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
-	        icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
-	    });
-	    //
+	
+	function handleTransfer(startList, endList, taskId, taskCard){
+		console.log(startList, endList, taskId, taskCard);
+		// Cancel and Finished are terminal states
+			if(startList == "canceledTasks" || startList == "finishedTasks"){
+				$scope.revert = true;
+				return;
+			}
+		// reorder the list
+			if(startList == endList){
+				return;
+			}
+		if($scope.ownerId == $scope.currentUser.user_id){
+			// owner related transitions
+			$scope.revert = false;
+			if(endList == "canceledTasks"){
+				//fire task update query
+				return;
+			}else if(startList == "newTasks" && endList == "assignedTasks"){
+				// open modal
+				var modalInstance = $uibModal.open({
+					templateUrl : '/glimpse/partials/assignAssignee',
+					controller : 'TaskController',
+					controllerAs : 'tc',
+					resolve : {
+						task : function() {
+							return taskId;
+						},
+						team : function(){
+							return $scope.projectDetails.team;
+						}
+					}
+				});
+				modalInstance.result.then(function(data) {
+					//modal closed success
+					console.log(data);
+					if(data == "done"){
+						//call refresh function
+						$scope.revert = false;
+						return;
+					}else{
+						$scope.revert = true;
+						revert();
+					}
+				}, function(err) {
+					$scope.revert = true;
+					revert();
+				});
+				
+				return;
+			}else if(startList == "startedTasks" && endList == "finishedTasks"){
+				var assigneeId = taskCard.children[1].innerHTML;
+				
+				if(assigneeId == $scope.currentUser.user_id){
+					completeStartedTask();
+					$scope.revert = false;
+				}
+				return;
+			}else{
+				$scope.revert = true;
+			}
+		}else{
+			// project member related transitions
+			console.log("else");
+			var assigneeId = taskCard.children[1].innerHTML;
+			if(assigneeId == $scope.currentUser.user_id){
+				if(startList == "assignedTasks" && endList == "startedTasks"){
+					$scope.revert = false;
+					return;
+				}else if(startList == "startedTasks" && endList == "finishedTasks"){
+					
+					completeStartedTask();
+					$scope.revert = false;
+					return;
+				}
+			}
+			//if above conditions are not meet, revert!
+			$scope.revert = true;
+			return;
+		}
+	}
+	
+	function completeStartedTask(){
+		
+		var modalInstance = $uibModal.open({
+			templateUrl : '/glimpse/partials/actualDays',
+			controller : 'ActualDaysController',
+			controllerAs : 'ad',
+			resolve : {
+				task : function() {
+					return "";
+				}
+			}
+		});
+		modalInstance.result.then(function(data) {
+			//modal closed success
+			console.log(data);
+			if(data == "done"){
+				//call refresh function
+				$scope.revert = false;
+				return;
+			}else{
+				$scope.revert = true;
+				revert();
+			}
+		}, function(err) {
+			$scope.revert = true;
+			revert();
+		});
+	}
+	
+	function revert(){
+		if($scope.revert){
+			$scope.newTasks = beforeUpdatenewTasks;
+			$scope.assignedTasks = beforeUpdateassignedTasks;
+			$scope.startedTasks = beforeUpdatestartedTasks;
+			$scope.finishedTasks = beforeUpdatefinishedTasks;
+			$scope.canceledTasks = beforeUpdatecanceledTasks;
+			$scope.revert = false;
+		}
+	}
+	
+    // Draggable Task board
+	$scope.sortableOptions = {
+		    placeholder: "app",
+		    start: function(){
+		    	beforeUpdatenewTasks = $scope.newTasks.slice();
+		    	beforeUpdateassignedTasks = $scope.assignedTasks.slice();
+		    	beforeUpdatestartedTasks = $scope.startedTasks.slice();
+		    	beforeUpdatefinishedTasks = $scope.finishedTasks.slice();
+		    	beforeUpdatecanceledTasks = $scope.canceledTasks.slice();
+		    },
+		    beforeStop: function(event,ui){
+		    	var startList = event.target.parentElement.classList[1];
+		    	var endList = event.toElement.offsetParent.classList[1];
+		    	var taskId = ui.item[0].children[0].innerHTML;
+		    	handleTransfer(startList, endList, taskId, ui.item[0]);
+		    },
+		    connectWith: ".tasklane",
+		    stop: function (){
+		    	revert();
+		    }
+		  };
 });

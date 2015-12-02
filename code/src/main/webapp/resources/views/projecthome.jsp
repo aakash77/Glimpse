@@ -24,71 +24,91 @@
 			</div>
 			<div class="col-md-6"></div>
 		</div>
-		<div class="row">
+		<div class="row taskboard">
 			<div class="col-md-1"></div>
-			<div class="col-md-2 tasklane">
+			<div class="col-md-2 newTasks">
 				<h4>New Tasks</h4>
-				<div class="portlet">
-					<div class="portlet-header">Feeds</div>
-					<div class="portlet-content">Lorem ipsum dolor sit amet,
-						consectetuer adipiscing elit</div>
-				</div>
-				<div class="portlet">
-					<div class="portlet-header">News</div>
-					<div class="portlet-content">Lorem ipsum dolor sit amet,
-						consectetuer adipiscing elit</div>
-				</div>
+				<div ui-sortable="sortableOptions" class="tasklane screen floatleft" ng-model="newTasks">
+			      <div class="app" ng-repeat="app in newTasks"><span class="id hidden">{{app.task_id}}</span>
+					<div class="panel panel-warning">
+						<div class="panel-heading"><h3 class="panel-title">{{app.title}}</h3></div>
+						<div class="panel-body">
+							{{app.description}} <br /><br />
+							<small>Estimate TOC: {{app.estimate}}</small>
+						</div>
+					</div>
+			      </div>
+			    </div>
 			</div>
 
-			<div class="col-md-2 tasklane">
+			<div class="col-md-2 assignedTasks">
 				<h4>Assigned Tasks</h4>
-				<div class="portlet">
-					<div class="portlet-header">Shopping</div>
-					<div class="portlet-content">Lorem ipsum dolor sit amet,
-						consectetuer adipiscing elit</div>
-				</div>
+				<div ui-sortable="sortableOptions" class="tasklane screen floatleft" ng-model="assignedTasks">
+			    	<div class="app" ng-repeat="app in assignedTasks">
+			    		<span class="id hidden">{{app.task_id}}</span><span class="assignee hidden">{{app.assignee.id}}</span>
+						<div class="panel panel-info">
+							<div class="panel-heading"><h3 class="panel-title">{{app.title}}</h3></div>
+							<div class="panel-body">
+								{{app.description}} <br /><br />
+								<small>Assignee: {{app.assignee.name}} <br />
+								Estimate TOC: {{app.estimate}}</small>
+							</div>
+						</div>
+					</div>
+			    </div>
 			</div>
 
-			<div class="col-md-2 tasklane">
+			<div class="col-md-2 startedTasks">
 				<h4>Started Tasks</h4>
-				<div class="portlet">
-					<div class="portlet-header">Links</div>
-					<div class="portlet-content">Lorem ipsum dolor sit amet,
-						consectetuer adipiscing elit</div>
-				</div>
-				<div class="portlet">
-					<div class="portlet-header">Images</div>
-					<div class="portlet-content">Lorem ipsum dolor sit amet,
-						consectetuer adipiscing elit</div>
-				</div>
+				<div ui-sortable="sortableOptions" class="tasklane screen floatleft" ng-model="startedTasks">
+			      <div class="app" ng-repeat="app in startedTasks">
+			      	<span class="id hidden">{{app.task_id}}</span><span class="assignee hidden">{{app.assignee.id}}</span>
+						<div class="panel panel-primary">
+							<div class="panel-heading"><h3 class="panel-title">{{app.title}}</h3></div>
+							<div class="panel-body">
+								{{app.description}} <br /><br />
+								<small>Assignee: {{app.assignee.name}} <br />
+								Estimate TOC: {{app.estimate}}</small>
+							</div>
+						</div>
+			      </div>
+			    </div>
 			</div>
 			
-			<div class="col-md-2 tasklane">
+			<div class="col-md-2 finishedTasks">
 				<h4>Finished Tasks</h4>
-				<div class="portlet">
-					<div class="portlet-header">Links</div>
-					<div class="portlet-content">Lorem ipsum dolor sit amet,
-						consectetuer adipiscing elit</div>
-				</div>
-				<div class="portlet">
-					<div class="portlet-header">Images</div>
-					<div class="portlet-content">Lorem ipsum dolor sit amet,
-						consectetuer adipiscing elit</div>
-				</div>
+				<div ui-sortable="sortableOptions" class="tasklane screen floatleft" ng-model="finishedTasks">
+			      <div class="app" ng-repeat="app in finishedTasks">
+			      	<span class="id hidden">{{app.task_id}}</span><span class="assignee hidden">{{app.assignee.id}}</span>
+						<div class="panel panel-success">
+							<div class="panel-heading"><h3 class="panel-title">{{app.title}}</h3></div>
+							<div class="panel-body">
+								{{app.description}} <br /><br />
+								<small>Assignee: {{app.assignee.name}} <br />
+								Estimate TOC: {{app.estimate}}</small>
+							</div>
+						</div>
+			      </div>
+			    </div>
 			</div>
 			
-			<div class="col-md-2 tasklane">
+			<div class="col-md-2 canceledTasks">
 				<h4>Canceled Tasks</h4>
-				<div class="portlet">
-					<div class="portlet-header">Links</div>
-					<div class="portlet-content">Lorem ipsum dolor sit amet,
-						consectetuer adipiscing elit</div>
-				</div>
-				<div class="portlet">
-					<div class="portlet-header">Images</div>
-					<div class="portlet-content">Lorem ipsum dolor sit amet,
-						consectetuer adipiscing elit</div>
-				</div>
+				<div ui-sortable="sortableOptions" class="tasklane screen floatleft" ng-model="canceledTasks">
+			      <div class="app" ng-repeat="app in canceledTasks">
+			      	<span class="id hidden">{{app.task_id}}</span>
+						<div class="panel panel-default">
+							<div class="panel-heading"><h3 class="panel-title">{{app.title}}</h3></div>
+							<div class="panel-body">
+								{{app.description}} <br /><br />
+								<small>Assignee: {{app.assignee.name}} <br />
+								Estimate TOC: {{app.estimate}} <br />
+								Actual TOC: {{app.actual}}</small>
+							</div>
+						</div>
+					</div>
+			      </div>
+			    </div>
 			</div>
 			<div class="col-md-1"></div>
 		</div>
