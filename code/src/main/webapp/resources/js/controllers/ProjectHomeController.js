@@ -2,6 +2,15 @@ glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataS
 
 	var phc = this;
 	var tmpList = [];
+	
+	// set fallback arrays
+	var beforeUpdatenewTasks = [];
+	var beforeUpdateassignedTasks = [];
+	var beforeUpdatestartedTasks = [];
+	var beforeUpdatefinishedTasks = [];
+	var beforeUpdatecanceledTasks = [];
+	$scope.revert = false;
+	
 	$scope.newTasks = [{
 		id:"1",
 		title:"New Task"
@@ -22,21 +31,24 @@ glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataS
 		id:"5",
 		title:"canceledTasks Task"
 	}];
-	console.log($routeParams.id);
+	
+	
 	/**ng init for fetching all projects of an user**/
 	phc.getProjectDetails = function() {
 		$scope.currentUser = {name : $window.localStorage.currentUserName,
 				email : $window.localStorage.currentUserEmail,
 				user_id : $window.localStorage.currentUserId};
-		console.log($routeParams.id);
+		
 		// get users project details
 		DataService.getData("/glimpse/project/"+$routeParams.id,[])
 		.success(function(data) {
 			$scope.projectDetails = data;
 			// get project tasks
+			
+			$scope.ownerId =  data.owner.id
 			DataService.getData("/glimpse/project/"+$routeParams.id+"/tasks")
 			.success(function(data) {
-				console.log(data);
+				console.log("tasks",data);
 				//assign tasks by task state
 				
 				for(var i=0;i<data.length;i++){
@@ -59,19 +71,107 @@ glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataS
 			console.log("Error getting the project details");
 		});	
 	};
-
+	
+	function handleTransfer(startList, endList, taskId, taskCard){
+		console.log(startList, endList, taskId, taskCard);
+		// Cancel and Finished are terminal states
+			if(startList == "canceledTasks" || startList == "finishedTasks"){
+				$scope.revert = true;
+				return;
+			}
+		// reorder the list
+			if(startList == endList){
+				return;
+			}
+		if($scope.ownerId == $scope.currentUser.user_id){
+			// owner related transitions
+			$scope.revert = false;
+			if(endList == "canceledTasks"){
+				//fire task update query
+				return;
+			}else if(startList == "newTasks" && endList == "assignedTasks"){
+				// open modal
+				var modalInstance = $uibModal.open({
+					templateUrl : '/glimpse/partials/assignAssignee',
+					controller : 'TaskController',
+					controllerAs : 'tc',
+					resolve : {
+						task : function() {
+							return taskId;
+						},
+						team : function(){
+							return $scope.projectDetails.team;
+						}
+					}
+				});
+				modalInstance.result.then(function(data) {
+					//modal closed success
+					console.log(data);
+					if(data == "done"){
+						//call refresh function
+						$scope.revert = false;
+						return;
+					}else{
+						$scope.revert = true;
+						revert();
+					}
+				}, function(err) {
+					$scope.revert = true;
+					revert();
+				});
+				
+				return;
+			}else{
+				$scope.revert = true;
+			}
+		}else{
+			// project member related transitions
+			var assigneeId = taskCard.children[0].innerHTML;
+			if(assigneeId == $scope.currentUser.user_id){
+				if(startList == "assignedTasks" && endList == "startedTasks"){
+					$scope.revert = false;
+					return;
+				}else if(startList == "startedTasks" && endList == "finishedTasks"){
+					$scope.revert = false;
+					return;
+				}
+			}
+			//if above conditions are not meet, revert!
+			$scope.revert = true;
+			return;
+		}
+	}
+	
+	function revert(){
+		if($scope.revert){
+			$scope.newTasks = beforeUpdatenewTasks;
+			$scope.assignedTasks = beforeUpdateassignedTasks;
+			$scope.startedTasks = beforeUpdatestartedTasks;
+			$scope.finishedTasks = beforeUpdatefinishedTasks;
+			$scope.canceledTasks = beforeUpdatecanceledTasks;
+			$scope.revert = false;
+		}
+	}
+	
     // Draggable Task board
 	$scope.sortableOptions = {
 		    placeholder: "app",
+		    start: function(){
+		    	beforeUpdatenewTasks = $scope.newTasks.slice();
+		    	beforeUpdateassignedTasks = $scope.assignedTasks.slice();
+		    	beforeUpdatestartedTasks = $scope.startedTasks.slice();
+		    	beforeUpdatefinishedTasks = $scope.finishedTasks.slice();
+		    	beforeUpdatecanceledTasks = $scope.canceledTasks.slice();
+		    },
 		    beforeStop: function(event,ui){
-		    	log(event.toElement.offsetParent.classList[1]);
-		    	log(event.target.parentElement.classList[1]);
-			      log(ui.item[0]);
+		    	var startList = event.target.parentElement.classList[1];
+		    	var endList = event.toElement.offsetParent.classList[1];
+		    	var taskId = ui.item[0].children[0].innerHTML;
+		    	handleTransfer(startList, endList, taskId, ui.item[0]);
 		    },
 		    connectWith: ".tasklane",
+		    stop: function (){
+		    	revert();
+		    }
 		  };
-		function log(data){
-			console.log(data);
-		}
-
 });

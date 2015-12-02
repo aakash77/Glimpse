@@ -29,21 +29,21 @@
 			<div class="col-md-2 newTasks">
 				<h4>New Tasks</h4>
 				<div ui-sortable="sortableOptions" class="tasklane screen floatleft" ng-model="newTasks">
-			      <div class="app" ng-repeat="app in newTasks">{{$index}} {{app.title}}</div>
+			      <div class="app" ng-repeat="app in newTasks"><span class="id">{{app.task_id}}</span>{{app.title}}</div>
 			    </div>
 			</div>
 
 			<div class="col-md-2 assignedTasks">
 				<h4>Assigned Tasks</h4>
 				<div ui-sortable="sortableOptions" class="tasklane screen floatleft" ng-model="assignedTasks">
-			      <div class="app" ng-repeat="app in assignedTasks">{{$index}} {{app.title}}</div>
+			      <div class="app" ng-repeat="app in assignedTasks"><span class="id">{{app.id}}</span><span class="asignee_id">{{app.assignee.id}}</span> {{app.title}}</div>
 			    </div>
 			</div>
 
 			<div class="col-md-2 startedTasks">
 				<h4>Started Tasks</h4>
 				<div ui-sortable="sortableOptions" class="tasklane screen floatleft" ng-model="startedTasks">
-			      <div class="app" ng-repeat="app in startedTasks">{{$index}} {{app.title}}</div>
+			      <div class="app" ng-repeat="app in startedTasks"><span class="id">{{app.id}}</span><span class="asignee_id">{{app.assignee.id}}</span> {{app.title}}</div>
 			    </div>
 			</div>
 			
@@ -57,7 +57,7 @@
 			<div class="col-md-2 canceledTasks">
 				<h4>Canceled Tasks</h4>
 				<div ui-sortable="sortableOptions" class="tasklane screen floatleft" ng-model="canceledTasks">
-			      <div class="app" ng-repeat="app in canceledTasks">{{$index}} {{app.title}}</div>
+			      <div class="app" ng-repeat="app in canceledTasks"><span class="id">{{app.id}}</span> {{app.title}}</div>
 			    </div>
 			</div>
 			<div class="col-md-1"></div>
