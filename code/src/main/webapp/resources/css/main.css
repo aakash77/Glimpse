@@ -75,3 +75,23 @@ body {
     margin: 0 1em 1em 0;
     height: 50px;
 }
+
+.app{
+	cursor: all-scroll;
+}
+
+.hidden{
+	display: none;
+}
+.taskboard{
+	background: darkcyan;
+	min-height: 500px;
+}
+
+.tasklane{
+	border-style: dashed;
+    min-height: 70px;
+    max-height: 600px;
+    overflow-y: scroll;	
+    border-width: thin;
+}

@@ -11,26 +11,11 @@ glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataS
 	var beforeUpdatecanceledTasks = [];
 	$scope.revert = false;
 	
-	$scope.newTasks = [{
-		id:"1",
-		title:"New Task"
-	}];
-	$scope.assignedTasks = [{
-		id:"2",
-		title:"Assigned Task"
-	}];
-	$scope.startedTasks = [{
-		id:"3",
-		title:"startedTasks Task"
-	}];
-	$scope.finishedTasks = [{
-		id:"4",
-		title:"finishedTasks Task"
-	}];
-	$scope.canceledTasks = [{
-		id:"5",
-		title:"canceledTasks Task"
-	}];
+	$scope.newTasks = [];
+	$scope.assignedTasks = [];
+	$scope.startedTasks = [];
+	$scope.finishedTasks = [];
+	$scope.canceledTasks = [];
 	
 	
 	/**ng init for fetching all projects of an user**/
@@ -60,7 +45,7 @@ glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataS
 						$scope.startedTasks.push(data[i]);
 					else if(data[i].state.value=="finished")
 						$scope.finishedTasks.push(data[i]);
-					else if(data[i].state.value=="canceled")
+					else if(data[i].state.value=="cancelled")
 						$scope.canceledTasks.push(data[i]);
 				}				
 			})
