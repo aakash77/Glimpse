@@ -15,7 +15,6 @@ public class Project_State {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long project_state_id;
 	
-	@Id
 	@Column(name="value",unique=true)
 	private String value;
 	

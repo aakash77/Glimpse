@@ -12,10 +12,28 @@ glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataS
 		DataService.getData("/glimpse/project/"+$routeParams.id,[])
 		.success(function(data) {
 			$scope.projectDetails = data;
+			// get project tasks
 			DataService.getData("/glimpse/project/"+$routeParams.id+"/tasks")
 			.success(function(data) {
 				console.log(data);
-				$scope.projectTasks = data;
+				//assign tasks by task state
+				phc.newTasks = [];
+				phc.assignedTasks = [];
+				phc.startedTasks = [];
+				phc.finishedTasks = [];
+				phc.canceledTasks = [];
+				for(var i=0;i<data.length;i++){
+					if(data[i].state.value=="new")
+						phc.newTasks.push(data[i]);
+					else if(data[i].state.value=="assigned")
+						phc.assignedTasks.push(data[i]);
+					else if(data[i].state.value=="started")
+						phc.startedTasks.push(data[i]);
+					else if(data[i].state.value=="finished")
+						phc.finishedTasks.push(data[i]);
+					else if(data[i].state.value=="canceled")
+						phc.canceledTasks.push(data[i]);
+				}				
 			})
 			.error(function(err){
 				console.log("Error while getting all tasks of the project");
