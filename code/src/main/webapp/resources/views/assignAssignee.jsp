@@ -1,6 +1,6 @@
 <div ng-init="tc.initAddMember()">
 	<div class="modal-header">
-		<h3 class="modal-title">Add Team Members</h3>
+		<h3 class="modal-title">Add Assignee Name</h3>
 	</div>
 
 	<div class="modal-body">
