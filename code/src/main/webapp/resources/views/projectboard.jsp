@@ -75,31 +75,27 @@
 						Projects</div>
 				</div>
 				<div class="row">
-					<div ng-if="pc.memberProjects.length==0" align="center">No Projects as
-						Participant</div>
+					<div ng-if="pc.memberProjects.length==0" align="center">No
+						Projects as Participant</div>
 					<div ng-if="pc.memberProjects.length!=0">
-						<div class="row">
-							<div ng-if="pc.memberProjects.length!=0">
-								<div class="panel col-xs-3"
-									ng-repeat="memberProjects in pc.memberProjects"
-									style="margin-right: 2%; padding: inherit;">
-									<div class="panel-heading" align="center"
-										style="background: mediumseagreen; color: aliceblue;">
-										<div class="row">
-											<a style="color: aliceblue; cursor: pointer;"
-												ng-click="pc.openProjectHome(memberProjects)"><strong>{{memberProjects.title}}</strong></a>
-										</div>
-										<div class="row">Owner : {{memberProjects.owner.name}}</div>
-									</div>
-									<div class="panel-body">
-										{{memberProjects.description}}
-										<uib-progressbar class="progress-striped"
-											ng-class="{'active': memberProjects.state.value=='ongoing'}"
-											value="pc.getPercent(memberProjects)"
-											type="{{memberProjects.color}}">{{memberProjects.state.value
-										| uppercase}}</uib-progressbar>
-									</div>
+						<div class="panel col-xs-3"
+							ng-repeat="memberProjects in pc.memberProjects"
+							style="margin-right: 2%; padding: inherit;">
+							<div class="panel-heading" align="center"
+								style="background: mediumseagreen; color: aliceblue;">
+								<div class="row">
+									<a style="color: aliceblue; cursor: pointer;"
+										ng-click="pc.openProjectHome(memberProjects)"><strong>{{memberProjects.title}}</strong></a>
 								</div>
+								<div class="row">Owner : {{memberProjects.owner.name}}</div>
+							</div>
+							<div class="panel-body">
+								{{memberProjects.description}}
+								<uib-progressbar class="progress-striped"
+									ng-class="{'active': memberProjects.state.value=='ongoing'}"
+									value="pc.getPercent(memberProjects)"
+									type="{{memberProjects.color}}">{{memberProjects.state.value
+								| uppercase}}</uib-progressbar>
 							</div>
 						</div>
 					</div>
