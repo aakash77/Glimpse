@@ -8,14 +8,16 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<form class="navbar-form" role="search">
-						<label>Search</label>
-
-						<div class="input-group" style="width: 50%;">
-							<input type="text" class="form-control" placeholder="Search"
-								name="searchBox" ng-model="amc.selectedMember"
-								uib-typeahead="name as name.name for name in amc.nonProjectUsers | filter:$viewValue | limitTo:8">
+						<div class="row">
+							<div class="col-xs-10">
+								<input type="text" class="form-control" placeholder="Search"
+									name="searchBox" ng-model="amc.selectedMember"
+									uib-typeahead="name as name.name for name in amc.nonProjectUsers | filter:$viewValue | limitTo:8">
+							</div>
+							<div class="col-xs-2">
+								<button class="btn btn-primary" ng-click="amc.addMemberBtn()">Add</button>
+							</div>
 						</div>
-						<button class="btn btn-primary" ng-click="amc.addMemberBtn()">Add</button>
 					</form>
 				</div>
 			</div>
@@ -25,7 +27,7 @@
 					<h4>Project Members</h4>
 					<div class="row" ng-repeat="members in amc.projectUsers">
 						<div class="col-xs-12">
-							<b>{{members.name}}</b> <{{members.email}}>
+							<small><b>{{members.name}}</b> <{{members.email}}></small>
 						</div>
 					</div>
 				</div>
@@ -33,7 +35,7 @@
 					<h4>Send Invitations To</h4>
 					<div class="row" ng-repeat="members in amc.addedMembers">
 						<div class="col-xs-12">
-							<b>{{members.name}}</b> <{{members.email}}>
+							<small><b>{{members.name}}</b> <{{members.email}}></small>
 						</div>
 					</div>
 				</div>
