@@ -34,26 +34,21 @@
 					<button type="submit" ng-disabled="loginForm.$invalid"
 						class="btn btn-info btn-sm">Log In</button>
 				</div>
-
-				<div class="row" style="padding-bottom: 1%;">
-					<div class="col-xs-6" style="padding-top: 1%;">
-
-						<small class="text-danger">Don't have an account yet? Sign
-							Up below or, </small>
-
-					</div>
-					<div class="col-xs-6" style="right: 8%;">
-						<google-plus-signin style="width:195px;"
-							clientid="22120033347-040ennvk81plparsps706okbkh1rp210.apps.googleusercontent.com">
-						</google-plus-signin>
-
-						<!-- <button class="btn btn-social btn-google btn-danger" ng-click="googleLogin()">
-							<span class="fa fa-google"></span>Sign in with Google
-						</button> -->
-					</div>
-				</div>
 			</form>
+			<div class="row" style="padding-bottom: 1%;">
+				<div class="col-xs-6" style="padding-top: 1%;">
+					<p><small class="custom-nav-text">Don't have an account yet? Sign
+						Up below or, </small><p>
+				</div>
 
+
+				<div class="col-xs-6" style="right: 4%;">
+					<button class="btn btn-danger btn-google-plus"
+						ng-click="googleLogin()">
+						<span class="ion-social-googleplus"></span> Sign in with Google
+					</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

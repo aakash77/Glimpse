@@ -11,17 +11,14 @@
 		</div>
 
 		<ul class="nav navbar-nav navbar-right" style="padding-top: 1.5%;">
-			<li><a href="#">{{currentUser.name}}</a></li>
-			<li class="dropdown"><a href="#" class="dropdown-toggle"
+			<li><a href="#"><p>{{currentUser.name}}<p></a></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle" 
 				data-toggle="dropdown" role="button" aria-expanded="false"> <span
 					class="caret"></span> <span class="glyphicon glyphicon-user"
 					aria-hidden="true"></span>
 			</a>
 
 				<ul class="dropdown-menu" role="menu">
-					<li class="cursor"><a href="#" ng-click="userProfile()">Profile</a></li>
-
-					<li class="divider"></li>
 					<li class="cursor"><a href="javascript:void(0)"
 						ng-click="logout()">Logout</a></li>
 				</ul></li>

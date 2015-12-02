@@ -1,4 +1,4 @@
-package com.group4.glimpse.controller;
+ package com.group4.glimpse.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

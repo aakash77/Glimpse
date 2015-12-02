@@ -8,7 +8,11 @@ glimpse.controller('LoginController', function($scope,$location, $rootScope, Aut
 		Auth.login(urlConstants.LOGIN, params);
 	};
 
-	$scope.$on('event:google-plus-signin-success', function (event,authResult) {
+	$scope.googleLogin = function() {
+		Auth.googleLogin();
+	};
+
+	/*	$scope.$on('event:google-plus-signin-success', function (event,authResult) {
 		gapi.client.load('plus', 'v1', apiClientLoaded);
 	});
 
@@ -25,6 +29,6 @@ glimpse.controller('LoginController', function($scope,$location, $rootScope, Aut
 	$scope.$on('event:google-plus-signin-failure', function (event,authResult) {
 		// Auth failure or signout detected
 		$location.path('/');	
-	});
+	});*/
 
 });
