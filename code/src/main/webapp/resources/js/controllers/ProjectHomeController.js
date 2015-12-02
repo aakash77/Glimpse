@@ -1,4 +1,4 @@
-glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataService, NgTableParams, $window,$uibModal) {
+glimpse.controller('ProjectHomeController', function($scope, DataService, NgTableParams, $window,$uibModal) {
 
 	var phc = this;
 	var tmpList = [];
@@ -20,18 +20,24 @@ glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataS
 	
 	/**ng init for fetching all projects of an user**/
 	phc.getProjectDetails = function() {
-		$scope.currentUser = {name : $window.localStorage.currentUserName,
+		$scope.currentUser = {
+				name : $window.localStorage.currentUserName,
 				email : $window.localStorage.currentUserEmail,
-				user_id : $window.localStorage.currentUserId};
+				user_id : $window.localStorage.currentUserId
+				};
+		
+		phc.project_id = $window.localStorage.project_id;
+		
+		delete $window.localStorage.project_id;
 		
 		// get users project details
-		DataService.getData("/glimpse/project/"+$routeParams.id,[])
+		DataService.getData("/glimpse/project/"+phc.project_id,[])
 		.success(function(data) {
 			$scope.projectDetails = data;
 			// get project tasks
 			
 			$scope.ownerId =  data.owner.id
-			DataService.getData("/glimpse/project/"+$routeParams.id+"/tasks")
+			DataService.getData("/glimpse/project/"+phc.project_id+"/tasks")
 			.success(function(data) {
 				console.log("tasks",data);
 				//assign tasks by task state

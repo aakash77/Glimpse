@@ -27,6 +27,6 @@
 
 	</div>
 
-	<div ng-include="templateView"><</div>
+	<div ng-include="templateView.template"><</div>
 
 </div>

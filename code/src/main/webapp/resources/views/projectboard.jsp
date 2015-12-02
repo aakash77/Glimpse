@@ -1,7 +1,7 @@
 <div id="middle" ng-controller="ProjectController as pc"
 	ng-init="pc.getProjectDetails()">
 
-	<div ng-if="userProjects.length==0">
+	<div ng-if="pc.userProjects.length==0">
 		<span class='h1'>&nbsp;</span> <span class='h1'>&nbsp;</span>
 		<h3 class="text-center">
 			<strong>You do not have any projects yet. Click the button
@@ -15,7 +15,7 @@
 		</button>
 	</div>
 
-	<div ng-if="userProjects.length!=0" style="padding-top: 2%;">
+	<div ng-if="pc.userProjects.length!=0" style="padding-top: 2%;">
 		<!-- For Projects as an Owner  -->
 		<div class="row">
 			<div class="col-xs-10" style="margin-left: 10%;">
@@ -36,7 +36,8 @@
 							style="margin-right: 2%; padding: inherit;">
 							<div class="panel-heading" align="center"
 								style="background: mediumseagreen; color: aliceblue;">
-								<strong>{{ownerProjects.title}}</strong>
+								<a style="color: aliceblue; cursor: pointer;"
+									ng-click="pc.openProjectHome(ownerProjects)"><strong>{{ownerProjects.title}}</strong></a>
 								<div
 									ng-if="ownerProjects.state.value=='planning'||ownerProjects.state.value=='ongoing'"
 									class="text-danger pull-right">
@@ -65,37 +66,39 @@
 			</div>
 		</div>
 		<!-- For Projects as a Member  -->
+
 		<div class="row">
-			<div ng-if="pc.memberProjects.length==0">No Projects as
-				Participant</div>
-			<div ng-if="pc.memberProjects.length!=0">
-				<div class="col-xs-10" style="margin-left: 10%;">
-					<div class="row panel">
-						<div class="panel-heading"
-							style="background: darkcyan; color: white;">Participated
-							Projects</div>
-					</div>
-					<div class="row">
-						<div ng-if="pc.memberProjects.length==0">No Projects as
-							participant</div>
-						<div ng-if="pc.memberProjects.length!=0">
-							<div class="panel col-xs-3"
-								ng-repeat="memberProjects in pc.memberProjects"
-								style="margin-right: 2%; padding: inherit;">
-								<div class="panel-heading" align="center"
-									style="background: mediumseagreen; color: aliceblue;">
-									<div class="row">
-										<strong>{{memberProjects.title}}</strong>
+			<div class="col-xs-10" style="margin-left: 10%;">
+				<div class="row panel">
+					<div class="panel-heading"
+						style="background: darkcyan; color: white;">Participated
+						Projects</div>
+				</div>
+				<div class="row">
+					<div ng-if="pc.memberProjects.length==0" align="center">No Projects as
+						Participant</div>
+					<div ng-if="pc.memberProjects.length!=0">
+						<div class="row">
+							<div ng-if="pc.memberProjects.length!=0">
+								<div class="panel col-xs-3"
+									ng-repeat="memberProjects in pc.memberProjects"
+									style="margin-right: 2%; padding: inherit;">
+									<div class="panel-heading" align="center"
+										style="background: mediumseagreen; color: aliceblue;">
+										<div class="row">
+											<a style="color: aliceblue; cursor: pointer;"
+												ng-click="pc.openProjectHome(memberProjects)"><strong>{{memberProjects.title}}</strong></a>
+										</div>
+										<div class="row">Owner : {{memberProjects.owner.name}}</div>
 									</div>
-									<div class="row">Owner : {{memberProjects.owner.name}}</div>
-								</div>
-								<div class="panel-body">
-									{{memberProjects.description}}
-									<uib-progressbar class="progress-striped"
-										ng-class="{'active': memberProjects.state.value=='ongoing'}"
-										value="pc.getPercent(memberProjects)"
-										type="{{memberProjects.color}}">{{memberProjects.state.value
-									| uppercase}}</uib-progressbar>
+									<div class="panel-body">
+										{{memberProjects.description}}
+										<uib-progressbar class="progress-striped"
+											ng-class="{'active': memberProjects.state.value=='ongoing'}"
+											value="pc.getPercent(memberProjects)"
+											type="{{memberProjects.color}}">{{memberProjects.state.value
+										| uppercase}}</uib-progressbar>
+									</div>
 								</div>
 							</div>
 						</div>

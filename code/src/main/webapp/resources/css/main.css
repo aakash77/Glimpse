@@ -40,6 +40,7 @@
 #middle {
 	background: #f2f2f2;
 	padding-bottom: 12%;
+	height: 40em;
 }
 
 .tilt.right {
@@ -111,3 +112,7 @@ body {
     overflow-y: scroll;	
     border-width: thin;
 }
+
+/* .a[ng-click]{
+    cursor: pointer;
+} */

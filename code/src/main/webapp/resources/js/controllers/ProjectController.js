@@ -4,6 +4,7 @@ glimpse.controller('ProjectController', function($scope, $location, DataService,
 
 	/**ng init for fetching all projects of an user**/
 	pc.getProjectDetails = function() {
+		/*pc.userProjects = [];*/
 		$scope.currentUser = {
 				name : $window.localStorage.currentUserName,
 				email : $window.localStorage.currentUserEmail,
@@ -19,6 +20,8 @@ glimpse.controller('ProjectController', function($scope, $location, DataService,
 
 		DataService.getData("/glimpse/api/"+$scope.currentUser.user_id+"/projects",[])
 		.success(function(data) {
+			
+			pc.userProjects = data;
 			pc.ownedProjects = [];
 			pc.memberProjects = [];
 			data.map(function(project){
@@ -46,7 +49,12 @@ glimpse.controller('ProjectController', function($scope, $location, DataService,
 	};
 
 	pc.openProjectHome = function(project){
-		$location.path("/home/"+project.project_id);
+		/*console.log("in task redirect");
+		console.log(project);*/
+		$window.localStorage.project_id = project.project_id; 
+		$scope.templateView.template = "/glimpse/partials/projecthome";
+		
+		//$location.path("/home/"+project.project_id);
 	};
 
 	/**
