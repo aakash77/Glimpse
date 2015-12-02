@@ -80,6 +80,8 @@
 		src="${pageContext.request.contextPath}/resources/js/controllers/TaskController.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/controllers/ProjectHomeController.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/controllers/ActualDaysController.js"></script>
 
 	<!-- Directives -->
 	<script

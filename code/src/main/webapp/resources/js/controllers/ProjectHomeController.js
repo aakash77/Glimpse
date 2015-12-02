@@ -106,17 +106,28 @@ glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataS
 				});
 				
 				return;
+			}else if(startList == "startedTasks" && endList == "finishedTasks"){
+				var assigneeId = taskCard.children[1].innerHTML;
+				
+				if(assigneeId == $scope.currentUser.user_id){
+					completeStartedTask();
+					$scope.revert = false;
+				}
+				return;
 			}else{
 				$scope.revert = true;
 			}
 		}else{
 			// project member related transitions
-			var assigneeId = taskCard.children[0].innerHTML;
+			console.log("else");
+			var assigneeId = taskCard.children[1].innerHTML;
 			if(assigneeId == $scope.currentUser.user_id){
 				if(startList == "assignedTasks" && endList == "startedTasks"){
 					$scope.revert = false;
 					return;
 				}else if(startList == "startedTasks" && endList == "finishedTasks"){
+					
+					completeStartedTask();
 					$scope.revert = false;
 					return;
 				}
@@ -125,6 +136,35 @@ glimpse.controller('ProjectHomeController', function($scope, $routeParams, DataS
 			$scope.revert = true;
 			return;
 		}
+	}
+	
+	function completeStartedTask(){
+		
+		var modalInstance = $uibModal.open({
+			templateUrl : '/glimpse/partials/actualDays',
+			controller : 'ActualDaysController',
+			controllerAs : 'ad',
+			resolve : {
+				task : function() {
+					return "";
+				}
+			}
+		});
+		modalInstance.result.then(function(data) {
+			//modal closed success
+			console.log(data);
+			if(data == "done"){
+				//call refresh function
+				$scope.revert = false;
+				return;
+			}else{
+				$scope.revert = true;
+				revert();
+			}
+		}, function(err) {
+			$scope.revert = true;
+			revert();
+		});
 	}
 	
 	function revert(){
