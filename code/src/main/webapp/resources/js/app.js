@@ -23,4 +23,17 @@ var glimpse = angular.module("Glimpse", [ 'ui.bootstrap', 'ngMessages','ngRoute'
 	.otherwise({
 		redirectTo : '/'
 	});
-})	 
+}).run(['$rootScope','$window','$location','$templateCache',function($rootScope,$window, $location,$templateCache) {
+	
+	$rootScope.$on('$routeChangeStart', function(event,next, current) {
+		
+		if (typeof(current) !== 'undefined'){
+            $templateCache.remove(current.templateUrl);
+        }
+		
+		if($window.localStorage.currentUserId)
+			$location.path('/home');
+		else
+			$location.path('/');
+	});
+}]);

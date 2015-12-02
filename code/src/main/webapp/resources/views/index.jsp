@@ -49,6 +49,45 @@
 <!--Application CSS-->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/main.css">
+
+
+<!-- Modules -->
+<script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
+
+<!-- Controllers -->
+<script
+	src="${pageContext.request.contextPath}/resources/js/controllers/LoginController.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/controllers/SignUpController.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/controllers/HomeController.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/controllers/ProjectController.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/controllers/AddMemberCtrl.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/controllers/ProjectHomeController.js"></script>
+	
+<script
+	src="${pageContext.request.contextPath}/resources/js/controllers/DeleteProjectCtrl.js"></script>
+
+<!-- Directives -->
+<script
+	src="${pageContext.request.contextPath}/resources/js/directives/uniqueEmail.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/directives/google-plus-signin.js"></script>
+
+
+<!-- Services -->
+<script
+	src="${pageContext.request.contextPath}/resources/js/services/auth.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/services/dataService.js"></script>
+
+<!-- Utility -->
+<script
+	src="${pageContext.request.contextPath}/resources/js/utility/constants.js"></script>
+
 </head>
 
 <body>
@@ -56,40 +95,5 @@
 	<div class="main">
 		<div data-ng-view></div>
 	</div>
-
-	<!-- Modules -->
-	<script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
-
-	<!-- Controllers -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/controllers/LoginController.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/controllers/SignUpController.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/controllers/HomeController.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/controllers/ProjectController.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/controllers/AddMemberCtrl.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/controllers/ProjectHomeController.js"></script>
-
-	<!-- Directives -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/directives/uniqueEmail.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/directives/google-plus-signin.js"></script>
-	
-
-	<!-- Services -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/services/auth.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/services/dataService.js"></script>
-
-	<!-- Utility -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/utility/constants.js"></script>
-
 </body>
 </html>
