@@ -16,6 +16,14 @@ public interface UserService {
 	public User create(User user);
 	
 	/**
+	 * Update the User 
+	 * @param user
+	 * @return
+	 */
+	
+	public User update(User user);
+	
+	/**
 	 * create/signin user bu google auth
 	 * @param user
 	 * @return

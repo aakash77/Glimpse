@@ -1,4 +1,5 @@
 package com.group4.glimpse.model;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,29 +8,29 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="project_state")
-public class Project_State {
+@Table(name="task_state")
+public class Task_State {
 
 	@Id
-    @Column(name="project_state_id")
+    @Column(name="task_state_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long project_state_id;
+	private long task_state_id;
 	
 	@Column(name="value",unique=true)
 	private String value;
-	
+
 	/**
-	 * @return the project_state_id
+	 * @return the task_state_id
 	 */
-	public long getProject_state_id() {
-		return project_state_id;
+	public long getTask_state_id() {
+		return task_state_id;
 	}
 
 	/**
-	 * @param project_state_id the project_state_id to set
+	 * @param task_state_id the task_state_id to set
 	 */
-	public void setProject_state_id(long project_state_id) {
-		this.project_state_id = project_state_id;
+	public void setTask_state_id(long task_state_id) {
+		this.task_state_id = task_state_id;
 	}
 
 	/**
