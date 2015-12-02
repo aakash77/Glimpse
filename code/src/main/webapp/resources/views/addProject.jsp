@@ -23,9 +23,9 @@
 					<div ng-message="required">Your must enter the project title
 						name.</div>
 				</div>
-				
-				<div class="col-xs-12" separator">&nbsp;</div>
-				
+
+				<div class="col-xs-12"separator">&nbsp;</div>
+
 				<div class="col-xs-3">Description</div>
 				<div class="col-xs-1">:</div>
 				<div class="col-xs-8 form-group has-feedback"
@@ -44,12 +44,12 @@
 					<div ng-message="maxlength">The project description exceeds
 						the max limit of 500 characters.</div>
 				</div>
+			</div>
 
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary"
-						ng-disabled="addProjectForm.$invalid">Add</button>
-					<button class="btn btn-warning" ng-click="apc.cancel()">Cancel</button>
-				</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary"
+					ng-disabled="addProjectForm.$invalid">Add</button>
+				<button class="btn btn-warning" ng-click="apc.cancel()">Cancel</button>
 			</div>
 		</form>
 	</div>

@@ -31,7 +31,7 @@ glimpse.controller('AddProjectCtrl', function($scope,$uibModalInstance,DataServi
 			var queryParams = "?title="+$scope.projectTitle+"&description="+
 			$scope.projectDescription+"&user_id="+$window.localStorage.currentUserId;
 
-			DataService.postData(urlConstants.ADD_PROJECT+queryParams,{})
+			DataService.postData(urlConstants.PROJECTS+queryParams,{})
 			.success(function(data) {
 				$uibModalInstance.close('project added');
 			}).error(function(err){

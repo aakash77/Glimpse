@@ -4,12 +4,41 @@ glimpse.controller('ProjectController', function($scope, $location, DataService,
 
 	/**ng init for fetching all projects of an user**/
 	pc.getProjectDetails = function() {
-		$scope.currentUser = {name : $window.localStorage.currentUserName,
+		$scope.currentUser = {
+				name : $window.localStorage.currentUserName,
 				email : $window.localStorage.currentUserEmail,
-				user_id : $window.localStorage.currentUserId};
-
-		// get users project details
+				user_id : $window.localStorage.currentUserId
+		};
 		pc.getUserProjects();
+	};
+
+	/**
+	 * Get users project details
+	 */
+	pc.getUserProjects = function(){
+
+		DataService.getData("/glimpse/api/"+$scope.currentUser.user_id+"/projects",[])
+		.success(function(data) {
+			pc.ownedProjects = [];
+			pc.memberProjects = [];
+			data.map(function(project){
+
+				project.color = COLOR[project.state.value];
+				if(project.owner.id==$scope.currentUser.user_id)
+					pc.ownedProjects.push(project);
+				else
+					pc.memberProjects.push(project);
+			});
+		}).error(function(err){
+			console.log(err);
+		});
+	};
+
+	/**
+	 * Get Percent value for progress bar
+	 */
+	pc.getPercent = function(project){
+		return PERCENT[project.state.value];
 	};
 
 	pc.checkOwner = function(project){
@@ -20,16 +49,9 @@ glimpse.controller('ProjectController', function($scope, $location, DataService,
 		$location.path("/home/"+project.project_id);
 	};
 
-	pc.getUserProjects = function(){
-		DataService.getData("/glimpse/api/"+$scope.currentUser.user_id+"/projects",[])
-		.success(function(data) {
-			$scope.userProjects = data;
-			pc.tableParams = new NgTableParams({}, { dataset: data});
-		}).error(function(err){
-			console.log(err);
-		});
-	};
-
+	/**
+	 * Add Member Handler
+	 */
 	pc.addMember = function(project){
 		var modalInstance = $uibModal.open({
 			templateUrl : 'glimpse/partials/addMember',
@@ -45,11 +67,11 @@ glimpse.controller('ProjectController', function($scope, $location, DataService,
 			}
 		});
 
-		modalInstance.result.then(function(data) {
-		}, function(err) {
+		modalInstance.result.then(function() {
+			//modal success
+		}, function() {
 			//modal exited
 		});
-
 	};
 
 	pc.addProject = function (){
@@ -64,7 +86,7 @@ glimpse.controller('ProjectController', function($scope, $location, DataService,
 				}
 			}
 		});
-		
+
 		modalInstance1.result.then(function() {
 			pc.getUserProjects();
 		}, function() {
@@ -72,4 +94,27 @@ glimpse.controller('ProjectController', function($scope, $location, DataService,
 		}); 
 	};
 
+	/**
+	 * Remove Project Handler
+	 */
+	pc.removeProject=function(project){
+		var modalInstance = $uibModal.open({
+			templateUrl : 'glimpse/partials/deleteProject',
+			controller : 'DeleteProjectCtrl',
+			controllerAs : 'dpc',
+			size : 'sm',
+			resolve : {
+				project : function() {
+					return project;
+				}
+			}
+		});
+		modalInstance.result.then(function() {
+			//update user projects on dashboard
+			pc.getUserProjects();
+			//modal closed success
+		}, function() {
+			//modal exited
+		});
+	};
 });
