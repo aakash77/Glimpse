@@ -84,6 +84,15 @@ public class UserServiceImpl implements UserService {
 	
 		return userDAO.getAllUsers();
 	}
+	
+/**
+ * Get User by ID
+ */
+
+	@Override
+	public User read(long id) {
+		return userDAO.read(id);
+	}
 
 
 }

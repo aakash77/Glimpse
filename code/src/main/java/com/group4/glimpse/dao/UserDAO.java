@@ -39,5 +39,7 @@ public interface UserDAO {
 	public User getUser(long id);
 
 	public List<User> getAllUsers();
+
+	public User read(long id);
 	
 }
