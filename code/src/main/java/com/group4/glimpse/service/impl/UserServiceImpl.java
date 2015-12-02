@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
 	 * Service Implementation of creating a new User
 	 */
 	public User create(User user) {
-		String hashed_password = passwordHash.hashPassword(user.getPassword());
-		user.setPassword(hashed_password);
+		//String hashed_password = passwordHash.hashPassword(user.getPassword());
+		//user.setPassword(hashed_password);
 		return userDAO.create(user);
 	}
 
@@ -35,6 +35,10 @@ public class UserServiceImpl implements UserService {
 	 */
 	public User readEmail(String email) {
 		return userDAO.readEmail(email);
+	}
+	
+	public User update(User user) {
+		return userDAO.update(user);
 	}
 
 	/**

@@ -12,6 +12,7 @@
 	    <mapping class="com.group4.glimpse.model.Project_State"/>
 	    <mapping class="com.group4.glimpse.model.Task_State"/>	    
 		<mapping class="com.group4.glimpse.model.Invitations"/>	   
+		<mapping class="com.group4.glimpse.model.EmailValidation"/>	   
 	    
 	</session-factory>
 </hibernate-configuration>
