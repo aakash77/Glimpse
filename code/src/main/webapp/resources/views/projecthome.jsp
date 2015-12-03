@@ -22,8 +22,17 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6"></div>
+			<div class="col-md-6">
+				<!--  project progress -->
+			</div>
 		</div>
+
+		<div class="row pull-right" style="margin-top: -4%;">
+			<button class="btn btn-success" ng-click="phc.addTaskBtn()" style="margin-right:15px;">
+				<span class='glyphicon glyphicon-plus'></span> Add Task
+			</button>
+		</div>
+
 		<div class="row taskboard">
 			<div class="col-md-1"></div>
 			<div class="col-md-2 newTasks">
@@ -37,8 +46,8 @@
 								<h3 class="panel-title">{{app.title}}</h3>
 							</div>
 							<div class="panel-body">
-								{{app.description}} <br />
-								<br /> <small>Estimate TOC: {{app.estimate}}</small>
+								{{app.description}} <br /> <br /> <small>Estimate TOC:
+									{{app.estimate}}</small>
 							</div>
 						</div>
 					</div>
@@ -57,9 +66,8 @@
 								<h3 class="panel-title">{{app.title}}</h3>
 							</div>
 							<div class="panel-body">
-								{{app.description}} <br />
-								<br /> <small>Assignee: {{app.assignee.name}} <br />
-									Estimate TOC: {{app.estimate}}
+								{{app.description}} <br /> <br /> <small>Assignee:
+									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}}
 								</small>
 							</div>
 						</div>
@@ -79,9 +87,8 @@
 								<h3 class="panel-title">{{app.title}}</h3>
 							</div>
 							<div class="panel-body">
-								{{app.description}} <br />
-								<br /> <small>Assignee: {{app.assignee.name}} <br />
-									Estimate TOC: {{app.estimate}}
+								{{app.description}} <br /> <br /> <small>Assignee:
+									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}}
 								</small>
 							</div>
 						</div>
@@ -101,9 +108,8 @@
 								<h3 class="panel-title">{{app.title}}</h3>
 							</div>
 							<div class="panel-body">
-								{{app.description}} <br />
-								<br /> <small>Assignee: {{app.assignee.name}} <br />
-									Estimate TOC: {{app.estimate}}
+								{{app.description}} <br /> <br /> <small>Assignee:
+									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}}
 								</small>
 							</div>
 						</div>
@@ -122,10 +128,9 @@
 								<h3 class="panel-title">{{app.title}}</h3>
 							</div>
 							<div class="panel-body">
-								{{app.description}} <br />
-								<br /> <small>Assignee: {{app.assignee.name}} <br />
-									Estimate TOC: {{app.estimate}} <br /> Actual TOC:
-									{{app.actual}}
+								{{app.description}} <br /> <br /> <small>Assignee:
+									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}} <br />
+									Actual TOC: {{app.actual}}
 								</small>
 							</div>
 						</div>

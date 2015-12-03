@@ -2,7 +2,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 
 	var phc = this;
 	var tmpList = [];
-	
+
 	// set fallback arrays
 	var beforeUpdatenewTasks = [];
 	var beforeUpdateassignedTasks = [];
@@ -10,38 +10,38 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 	var beforeUpdatefinishedTasks = [];
 	var beforeUpdatecanceledTasks = [];
 	$scope.revert = false;
-	
+
 	$scope.newTasks = [];
 	$scope.assignedTasks = [];
 	$scope.startedTasks = [];
 	$scope.finishedTasks = [];
 	$scope.canceledTasks = [];
-	
-	
+
+
 	/**ng init for fetching all projects of an user**/
 	phc.getProjectDetails = function() {
 		$scope.currentUser = {
 				name : $window.localStorage.currentUserName,
 				email : $window.localStorage.currentUserEmail,
 				user_id : $window.localStorage.currentUserId
-				};
-		
+		};
+
 		phc.project_id = $window.localStorage.project_id;
-		
+
 		delete $window.localStorage.project_id;
-		
+
 		// get users project details
 		DataService.getData("/glimpse/project/"+phc.project_id,[])
 		.success(function(data) {
 			$scope.projectDetails = data;
 			// get project tasks
-			
+
 			$scope.ownerId =  data.owner.id
 			DataService.getData("/glimpse/project/"+phc.project_id+"/tasks")
 			.success(function(data) {
 				console.log("tasks",data);
 				//assign tasks by task state
-				
+
 				for(var i=0;i<data.length;i++){
 					if(data[i].state.value=="new")
 						$scope.newTasks.push(data[i]);
@@ -62,22 +62,22 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			console.log("Error getting the project details");
 		});	
 	};
-	
+
 	function handleTransfer(startList, endList, taskId, taskCard){
 		console.log(startList, endList, taskId, taskCard);
 		// Cancel and Finished are terminal states
-			if(startList == "canceledTasks" || startList == "finishedTasks"){
-				$scope.revert = true;
-				return;
-			}
+		if(startList == "canceledTasks" || startList == "finishedTasks"){
+			$scope.revert = true;
+			return;
+		}
 		// reorder the list
-			if(startList == endList){
-				return;
-			}
+		if(startList == endList){
+			return;
+		}
 		if($scope.ownerId == $scope.currentUser.user_id){
 			// owner related transitions
 			$scope.revert = false;
-			
+
 			if(endList == "canceledTasks"){
 				if(startList == "newTasks")
 					updateTaskStatus(beforeUpdatenewTasks, 5, taskId);
@@ -89,7 +89,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 					updateTaskStatus(beforeUpdatefinishedTasks, 5, taskId);
 				else
 					updateTaskStatus(beforeUpdatecanceledTasks, 5, taskId);
-				
+
 				return;
 			}else if(startList == "newTasks" && endList == "assignedTasks"){
 				// open modal
@@ -121,11 +121,11 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 					$scope.revert = true;
 					revert();
 				});
-				
+
 				return;
 			}else if(startList == "startedTasks" && endList == "finishedTasks"){
 				var assigneeId = taskCard.children[1].innerHTML;
-				
+
 				if(assigneeId == $scope.currentUser.user_id){
 					completeStartedTask(taskId);
 					$scope.revert = false;
@@ -144,7 +144,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 					$scope.revert = false;
 					return;
 				}else if(startList == "startedTasks" && endList == "finishedTasks"){
-					
+
 					completeStartedTask(taskId);
 					$scope.revert = false;
 					return;
@@ -155,7 +155,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			return;
 		}
 	}
-	
+
 	function completeStartedTask(task_id){
 		var t = {};
 		for(var i=0;i<beforeUpdatestartedTasks.length;i++){
@@ -193,7 +193,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			revert();
 		});
 	}
-	
+
 	function getTaskFromId(oldTaskArray,task_id){
 		var t = {};
 		for(var i=0;i<oldTaskArray.length;i++){
@@ -206,7 +206,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		}
 		return t;
 	}
-	
+
 	function updateTaskStatus(oldTaskArray, newState, task_id){
 		var t = {};
 		for(var i=0;i<oldTaskArray.length;i++){
@@ -227,7 +227,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			$scope.formError = "Error while sending invitation.";
 		});
 	}
-	
+
 	function revert(){
 		if($scope.revert){
 			$scope.newTasks = beforeUpdatenewTasks;
@@ -238,26 +238,50 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			$scope.revert = false;
 		}
 	}
-	
-    // Draggable Task board
+
+	// Draggable Task board
 	$scope.sortableOptions = {
-		    placeholder: "app",
-		    start: function(){
-		    	beforeUpdatenewTasks = $scope.newTasks.slice();
-		    	beforeUpdateassignedTasks = $scope.assignedTasks.slice();
-		    	beforeUpdatestartedTasks = $scope.startedTasks.slice();
-		    	beforeUpdatefinishedTasks = $scope.finishedTasks.slice();
-		    	beforeUpdatecanceledTasks = $scope.canceledTasks.slice();
-		    },
-		    beforeStop: function(event,ui){
-		    	var startList = event.target.parentElement.classList[1];
-		    	var endList = event.toElement.offsetParent.classList[1];
-		    	var taskId = ui.item[0].children[0].innerHTML;
-		    	handleTransfer(startList, endList, taskId, ui.item[0]);
-		    },
-		    connectWith: ".tasklane",
-		    stop: function (){
-		    	revert();
-		    }
-		  };
+			placeholder: "app",
+			start: function(){
+				beforeUpdatenewTasks = $scope.newTasks.slice();
+				beforeUpdateassignedTasks = $scope.assignedTasks.slice();
+				beforeUpdatestartedTasks = $scope.startedTasks.slice();
+				beforeUpdatefinishedTasks = $scope.finishedTasks.slice();
+				beforeUpdatecanceledTasks = $scope.canceledTasks.slice();
+			},
+			beforeStop: function(event,ui){
+				var startList = event.target.parentElement.classList[1];
+				var endList = event.toElement.offsetParent.classList[1];
+				var taskId = ui.item[0].children[0].innerHTML;
+				handleTransfer(startList, endList, taskId, ui.item[0]);
+			},
+			connectWith: ".tasklane",
+			stop: function (){
+				revert();
+			}
+	};
+
+	/**
+	 * Add new task
+	 */
+	phc.addTaskBtn = function(){
+
+		var modalInstance = $uibModal.open({
+			templateUrl : '/glimpse/partials/addTaskModal',
+			controller : 'AddTaskCtrl',
+			controllerAs : 'atc',
+			resolve : {
+				user : function() {
+					return $scope.currentUser;
+				},
+				project : function(){
+					return $scope.projectDetails;
+				}
+			}
+		});
+		modalInstance.result.then(function(data) {
+		}, function(err) {
+		});
+	};
+
 });

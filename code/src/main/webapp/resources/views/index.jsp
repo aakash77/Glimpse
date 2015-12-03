@@ -82,6 +82,9 @@
 	src="${pageContext.request.contextPath}/resources/js/controllers/DeleteProjectCtrl.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/js/controllers/SignUpNotificationCtrl.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/controllers/AddTaskCtrl.js"></script>
+
 
 <!-- Directives -->
 <script
