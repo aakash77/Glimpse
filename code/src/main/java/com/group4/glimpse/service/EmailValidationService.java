@@ -1,6 +1,7 @@
 package com.group4.glimpse.service;
 
 import com.group4.glimpse.model.EmailValidation;
+import com.group4.glimpse.model.User;
 
 public interface EmailValidationService {
 	/**
@@ -25,6 +26,8 @@ public interface EmailValidationService {
 	 */
 	
 	public EmailValidation read(long invitationid);
+
+	public EmailValidation readEmail(String email);
 
 
 }

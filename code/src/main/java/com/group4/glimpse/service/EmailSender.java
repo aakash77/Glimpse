@@ -47,7 +47,10 @@ public class EmailSender {
 	    			"To accept the invitation click on the below link" + "\n" 
 	    			+ "http:" + "/" + "/" + "localhost:8080" + "/" + "glimpse/validate" + "?"
 	    			+ "idEmailValidation" + "=" + idEmailValidation ;
+	    	
+	    	System.out.println("idEmailValidation"+idEmailValidation);
 
+	    	System.out.println("messageBody"+messageBody);
 	    	SimpleMailMessage message = new SimpleMailMessage();
 	    	message.setTo(to);
 	    	message.setSubject(subject);

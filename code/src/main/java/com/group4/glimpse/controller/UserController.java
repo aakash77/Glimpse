@@ -59,8 +59,21 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<String> addUser(@RequestBody User user){		
 		
-		String response;
+		String response="";	
+		
+		EmailValidation pendingValidation  = emailValidationService.readEmail(user.getEmail());
+		
+		if(pendingValidation!=null){
+			if(pendingValidation.getStatus().equalsIgnoreCase("notvalidated")){
+				System.out.println("My invitation id"+pendingValidation.getIdEmailValidation());
+				emailSender.sendMail(user.getEmail(), "Validate Email By Clicking the link in Email",pendingValidation.getIdEmailValidation());
+				response = "Email-Validation sent to " +user.getEmail();
+			}
+		}
+		else{
+		
 		EmailValidation emailValidation = new EmailValidation();
+	
 		emailValidation.setEmail(user.getEmail());
 		emailValidation.setName(user.getName());
 		emailValidation.setPassword(user.getPassword());
@@ -77,6 +90,7 @@ public class UserController {
 		}
 		//user = userService.create(user);
 		//user.setPassword(null);
+		}
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 	

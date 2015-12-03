@@ -26,6 +26,8 @@ public interface UserValidationDAO {
 	 */
 	public EmailValidation read(long idEmailValidation);
 	
+	public EmailValidation readEmail(String email);
+
 
 
 }

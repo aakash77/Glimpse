@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.group4.glimpse.dao.UserValidationDAO;
 import com.group4.glimpse.model.EmailValidation;
+import com.group4.glimpse.model.User;
 import com.group4.glimpse.service.EmailValidationService;
 import com.group4.glimpse.util.PasswordHash;
 
@@ -38,5 +39,8 @@ public class EmailValidationServiceImpl implements EmailValidationService {
 
 	}
 
+	public EmailValidation readEmail(String email) {
+		return userValidationDAO.readEmail(email);
+	}
 
 }
