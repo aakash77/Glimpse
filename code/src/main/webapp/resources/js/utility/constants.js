@@ -7,7 +7,8 @@ var urlConstants = {
 	"GOOGLE_AUTH" : "/glimpse/auth/google",
 	"GET_ALL_USERS":"/glimpse/user",
 	"SEND_EMAILS_INVITATIONS":"/glimpse/invitation/send",
-	"PROJECTS":"/glimpse/project"
+	"PROJECTS":"/glimpse/project",
+	"TASK":"/glimpse/task"
 };
 
 

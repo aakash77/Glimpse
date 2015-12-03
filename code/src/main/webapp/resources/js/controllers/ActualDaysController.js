@@ -6,16 +6,15 @@ glimpse.controller('ActualDaysController', function($scope,$uibModalInstance,tas
 
 
 	ad.okay = function(){
-		
-//		var queryParams = "?sendTo="+emailList+"&currentUser="+user.email+"&projectId="+project.project_id;
-//		DataService.postData(urlConstants.SEND_EMAILS_INVITATIONS+queryParams,{})
-//		.success(function(data) {
-//			console.log("before modal close");
-//			console.log(data);
+		var queryParams = "/"+task.task_id+"?project_id="+task.project.project_id+"&title="+task.title+"&description="+task.description+"&estimate="+task.estimate+"&actual="+ad.actualDays+"&task_state_id=4";
+		DataService.postData(urlConstants.TASK+queryParams,{})
+		.success(function(data) {
+			console.log("before modal close");
+			console.log(data);
 			$uibModalInstance.close('done');
-//		}).error(function(err){
-//			$scope.formError = "Error while sending invitation.";
-//		});	
+		}).error(function(err){
+			$scope.formError = "Error while adding actual days.";
+		});	
 	};
 
 	ad.cancel = function(){
