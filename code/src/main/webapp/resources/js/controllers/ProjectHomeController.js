@@ -77,8 +77,19 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		if($scope.ownerId == $scope.currentUser.user_id){
 			// owner related transitions
 			$scope.revert = false;
+			
 			if(endList == "canceledTasks"){
-				//fire task update query
+				if(startList == "newTasks")
+					updateTaskStatus(beforeUpdatenewTasks, 5, taskId);
+				else if(startList == "assignedTasks")
+					updateTaskStatus(beforeUpdateassignedTasks, 5, taskId);
+				else if(startList == "startedTasks")
+					updateTaskStatus(beforeUpdatestartedTasks, 5, taskId);
+				else if(startList == "finishedTasks")
+					updateTaskStatus(beforeUpdatefinishedTasks, 5, taskId);
+				else
+					updateTaskStatus(beforeUpdatecanceledTasks, 5, taskId);
+				
 				return;
 			}else if(startList == "newTasks" && endList == "assignedTasks"){
 				// open modal
@@ -88,7 +99,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 					controllerAs : 'tc',
 					resolve : {
 						task : function() {
-							return taskId;
+							return getTaskFromId(beforeUpdatenewTasks,taskId);
 						},
 						team : function(){
 							return $scope.projectDetails.team;
@@ -116,7 +127,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 				var assigneeId = taskCard.children[1].innerHTML;
 				
 				if(assigneeId == $scope.currentUser.user_id){
-					completeStartedTask();
+					completeStartedTask(taskId);
 					$scope.revert = false;
 				}
 				return;
@@ -129,11 +140,12 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			var assigneeId = taskCard.children[1].innerHTML;
 			if(assigneeId == $scope.currentUser.user_id){
 				if(startList == "assignedTasks" && endList == "startedTasks"){
+					updateTaskStatus(beforeUpdateassignedTasks, 2, task_id);
 					$scope.revert = false;
 					return;
 				}else if(startList == "startedTasks" && endList == "finishedTasks"){
 					
-					completeStartedTask();
+					completeStartedTask(taskId);
 					$scope.revert = false;
 					return;
 				}
@@ -144,15 +156,24 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		}
 	}
 	
-	function completeStartedTask(){
-		
+	function completeStartedTask(task_id){
+		var t = {};
+		for(var i=0;i<beforeUpdatestartedTasks.length;i++){
+			var task = beforeUpdatestartedTasks[i];
+			if(task.task_id == task_id){
+				t = task;
+				console.log("task",t);
+				break;
+			}
+		}
+
 		var modalInstance = $uibModal.open({
 			templateUrl : '/glimpse/partials/actualDays',
 			controller : 'ActualDaysController',
 			controllerAs : 'ad',
 			resolve : {
 				task : function() {
-					return "";
+					return t;
 				}
 			}
 		});
@@ -170,6 +191,40 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		}, function(err) {
 			$scope.revert = true;
 			revert();
+		});
+	}
+	
+	function getTaskFromId(oldTaskArray,task_id){
+		var t = {};
+		for(var i=0;i<oldTaskArray.length;i++){
+			var task = oldTaskArray[i];
+			if(task.task_id == task_id){
+				t = task;
+				console.log("task",t);
+				break;
+			}
+		}
+		return t;
+	}
+	
+	function updateTaskStatus(oldTaskArray, newState, task_id){
+		var t = {};
+		for(var i=0;i<oldTaskArray.length;i++){
+			var task = oldTaskArray[i];
+			if(task.task_id == task_id){
+				t = task;
+				console.log("task",t);
+				break;
+			}
+		}
+		var queryParams = "/"+t.task_id+"?project_id="+t.project.project_id+"&title="+t.title+"&description="+t.description+"&estimate="+t.estimate+"&actual="+t.actual+"&task_state_id="+newState;
+		console.log("query",t);
+		DataService.postData(urlConstants.TASK+queryParams,{})
+		.success(function(data) {
+			console.log("before modal close");
+			console.log(data);
+		}).error(function(err){
+			$scope.formError = "Error while sending invitation.";
 		});
 	}
 	
