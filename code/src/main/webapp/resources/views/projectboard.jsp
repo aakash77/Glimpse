@@ -1,6 +1,6 @@
 <div id="middle" ng-controller="ProjectController as pc"
 	ng-init="pc.getProjectDetails()">
-
+<div class="container whitebackground">
 	<div ng-if="pc.userProjects.length==0">
 		<span class='h1'>&nbsp;</span> <span class='h1'>&nbsp;</span>
 		<h3 class="text-center">
@@ -46,7 +46,7 @@
 										ng-click="pc.removeProject(ownerProjects)"></span>
 								</div>
 							</div>
-							<div class="panel-body">
+							<div class="panel-body graybackground">
 								{{ownerProjects.description}}
 								<uib-progressbar class="progress-striped"
 									ng-class="{'active': ownerProjects.state.value=='ongoing'}"
@@ -89,7 +89,7 @@
 								</div>
 								<div class="row">Owner : {{memberProjects.owner.name}}</div>
 							</div>
-							<div class="panel-body">
+							<div class="panel-body graybackground">
 								{{memberProjects.description}}
 								<uib-progressbar class="progress-striped"
 									ng-class="{'active': memberProjects.state.value=='ongoing'}"
@@ -103,4 +103,5 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>

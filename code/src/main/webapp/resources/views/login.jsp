@@ -53,13 +53,14 @@
 	</div>
 </div>
 
+
 <div id="middle" ng-controller="SignUpController">
 	<div class="row" style="padding-top: 3%;">
 		<div class="col-lg-6 col-md-6 col-s-12"
 			style="padding-top: 5%; margin-left: 2%;"></div>
 
-		<div class="col-lg-4 col-md-4 col-s-12 background-seashell"
-			style="margin-left: 12%;">
+		<div class="whitebackgroundsignup col-lg-4 col-md-4 col-s-12 background-seashell"
+			style="margin-left: 12%; height:250px;">
 			<form method="post" name="signUpForm" ng-submit="signup()" novalidate>
 				<h2>
 					<strong>Sign Up</strong>

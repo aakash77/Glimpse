@@ -38,9 +38,7 @@
 }
 
 #middle {
-	background: #f2f2f2;
-	padding-bottom: 12%;
-	height: 40em;
+	
 }
 
 .tilt.right {
@@ -111,6 +109,34 @@ body {
     max-height: 600px;
     overflow-y: scroll;	
     border-width: thin;
+}
+.whitebackground{
+	background: #fff;
+	min-height:600px;
+	margin-top:5px;
+}
+.whitebackgroundsignup{
+	background: #fff;
+	min-height:400px;
+	margin-top:5px;
+}
+
+
+.graybackground{
+	background : #E8E8E8;
+}
+
+body {
+    background: -webkit-linear-gradient(45deg, #92baac 45px, transparent 45px)64px 64px, -webkit-linear-gradient(45deg, #92baac 45px, transparent 45px,transparent 91px, #e1ebbd 91px, #e1ebbd 135px, transparent 135px), -webkit-linear-gradient(-45deg, #92baac 23px, transparent 23px, transparent 68px,#92baac 68px,#92baac 113px,transparent 113px,transparent 158px,#92baac 158px);
+    background: -moz-linear-gradient(45deg, #92baac 45px, transparent 45px)64px 64px, -moz-linear-gradient(45deg, #92baac 45px, transparent 45px,transparent 91px, #e1ebbd 91px, #e1ebbd 135px, transparent 135px), -moz-linear-gradient(-45deg, #92baac 23px, transparent 23px, transparent 68px,#92baac 68px,#92baac 113px,transparent 113px,transparent 158px,#92baac 158px);
+    background: -o-linear-gradient(45deg, #92baac 45px, transparent 45px)64px 64px, -o-linear-gradient(45deg, #92baac 45px, transparent 45px,transparent 91px, #e1ebbd 91px, #e1ebbd 135px, transparent 135px), -o-linear-gradient(-45deg, #92baac 23px, transparent 23px, transparent 68px,#92baac 68px,#92baac 113px,transparent 113px,transparent 158px,#92baac 158px);
+    background: -ms-linear-gradient(45deg, #92baac 45px, transparent 45px)64px 64px, -ms-linear-gradient(45deg, #92baac 45px, transparent 45px,transparent 91px, #e1ebbd 91px, #e1ebbd 135px, transparent 135px), -ms-linear-gradient(-45deg, #92baac 23px, transparent 23px, transparent 68px,#92baac 68px,#92baac 113px,transparent 113px,transparent 158px,#92baac 158px);
+    background: linear-gradient(45deg, #92baac 45px, transparent 45px)64px 64px, linear-gradient(45deg, #92baac 45px, transparent 45px,transparent 91px, #e1ebbd 91px, #e1ebbd 135px, transparent 135px), linear-gradient(-45deg, #92baac 23px, transparent 23px, transparent 68px,#92baac 68px,#92baac 113px,transparent 113px,transparent 158px,#92baac 158px);
+    background-color: #e1ebbd;
+
+    -webkit-background-size: 128px 128px;
+    -moz-background-size: 128px 128px;
+    background-size: 128px 128px;
 }
 
 /* .a[ng-click]{
