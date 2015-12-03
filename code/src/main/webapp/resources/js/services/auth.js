@@ -1,4 +1,4 @@
-glimpse.factory('Auth', function($http, $location, $rootScope, $window) {
+glimpse.factory('Auth', function($http, $location, $rootScope, $window, $uibModal) {
 	// Asynchronously load Google+ SDK
 	(function() {
 		var po = document.createElement('script');
@@ -59,14 +59,6 @@ glimpse.factory('Auth', function($http, $location, $rootScope, $window) {
 				method : 'POST',
 				url : dataURI,
 				data : params
-			})
-			.success(function(data) {
-				$window.localStorage.currentUserEmail = data.email;
-				$window.localStorage.currentUserId = data.id;
-				$window.localStorage.currentUserName = data.name;
-				$location.path('/home');
-			})
-			.error(function(response) {
 			});
 		},
 		logout: function() {
