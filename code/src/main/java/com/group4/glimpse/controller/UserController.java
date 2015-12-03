@@ -77,7 +77,7 @@ public class UserController {
 		}
 		//user = userService.create(user);
 		//user.setPassword(null);
-		return new ResponseEntity<String>(response, HttpStatus.OK);
+		return new ResponseEntity<String>("{ \"data\": "+response+"}", HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/validate",method = RequestMethod.GET)
