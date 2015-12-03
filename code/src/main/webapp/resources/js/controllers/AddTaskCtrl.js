@@ -10,8 +10,8 @@ glimpse.controller('AddTaskCtrl', function($scope,$uibModalInstance,user,project
 
 	atc.add = function(){
 		var queryParams = "?project_id="+project.project_id+"&title="+atc.title+"&description="+atc.titleDescription+"&actual=0&estimate="+atc.estimate+"&task_state_id=1&id="+atc.assignee.id;
-		DataService.postData(urlConstants.TASK,queryParams).success(function(data){
-			$uibModalInstance.close();
+		DataService.postData(urlConstants.TASK+queryParams,[]).success(function(data){
+			$uibModalInstance.close('closed');
 		}).error(function(err){
 			$uibModalInstance.dismiss();
 		});

@@ -35,33 +35,42 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		.success(function(data) {
 			$scope.projectDetails = data;
 			// get project tasks
-
 			$scope.ownerId =  data.owner.id
-			DataService.getData("/glimpse/project/"+phc.project_id+"/tasks")
-			.success(function(data) {
-				console.log("tasks",data);
-				//assign tasks by task state
+			getProjectTasks();
 
-				for(var i=0;i<data.length;i++){
-					if(data[i].state.value=="new")
-						$scope.newTasks.push(data[i]);
-					else if(data[i].state.value=="assigned")
-						$scope.assignedTasks.push(data[i]);
-					else if(data[i].state.value=="started")
-						$scope.startedTasks.push(data[i]);
-					else if(data[i].state.value=="finished")
-						$scope.finishedTasks.push(data[i]);
-					else if(data[i].state.value=="cancelled")
-						$scope.canceledTasks.push(data[i]);
-				}				
-			})
-			.error(function(err){
-				console.log("Error while getting all tasks of the project");
-			});	
 		}).error(function(err){
 			console.log("Error getting the project details");
 		});	
 	};
+
+
+	//Get project tasks
+	function getProjectTasks(){
+
+		DataService.getData("/glimpse/project/"+phc.project_id+"/tasks")
+		.success(function(data) {
+			console.log("tasks",data);
+			//assign tasks by task state
+
+			for(var i=0;i<data.length;i++){
+				if(data[i].state.value=="new")
+					$scope.newTasks.push(data[i]);
+				else if(data[i].state.value=="assigned")
+					$scope.assignedTasks.push(data[i]);
+				else if(data[i].state.value=="started")
+					$scope.startedTasks.push(data[i]);
+				else if(data[i].state.value=="finished")
+					$scope.finishedTasks.push(data[i]);
+				else if(data[i].state.value=="cancelled")
+					$scope.canceledTasks.push(data[i]);
+			}				
+		})
+		.error(function(err){
+			console.log("Error while getting all tasks of the project");
+		});
+
+
+	}
 
 	function handleTransfer(startList, endList, taskId, taskCard){
 		console.log(startList, endList, taskId, taskCard);
@@ -279,8 +288,10 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 				}
 			}
 		});
-		modalInstance.result.then(function(data) {
-		}, function(err) {
+		modalInstance.result.then(function() {
+			console.log("modal closed");
+			getProjectTasks();
+		}, function() {
 		});
 	};
 
