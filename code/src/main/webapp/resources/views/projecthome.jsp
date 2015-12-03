@@ -1,6 +1,6 @@
 <div id="middle" ng-controller="ProjectHomeController as phc"
 	ng-init="phc.getProjectDetails()">
-	<div class="container">
+	<div class="container whitebackground">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="page-header">
