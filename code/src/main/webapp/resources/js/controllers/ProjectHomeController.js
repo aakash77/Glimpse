@@ -59,6 +59,12 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		});
 	}
 	
+	//edit assignee
+	phc.editAssignee = function(array,index,task_id, newState){
+		console.log("newState",newState);
+		assignAssigneeModal(array,task_id, newState);
+	}
+	
 	//Get project tasks
 	function getProjectTasks(){
 
@@ -131,37 +137,12 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 					updateTaskStatus(beforeUpdatecanceledTasks, 5, taskId);
 
 				return;
+			}else if(startList == "assignedTasks" && endList == "startedTasks"){
+				updateTaskStatus(beforeUpdateassignedTasks, 2, taskId);
+				$scope.revert = false;
+				return;
 			}else if(startList == "newTasks" && endList == "assignedTasks"){
-				// open modal
-				var modalInstance = $uibModal.open({
-					templateUrl : '/glimpse/partials/assignAssignee',
-					controller : 'TaskController',
-					controllerAs : 'tc',
-					resolve : {
-						task : function() {
-							return getTaskFromId(beforeUpdatenewTasks,taskId);
-						},
-						team : function(){
-							return $scope.projectDetails.team;
-						}
-					}
-				});
-				modalInstance.result.then(function(data) {
-					//modal closed success
-					console.log(data);
-					if(data == "done"){
-						//call refresh function
-						$scope.revert = false;
-						return;
-					}else{
-						$scope.revert = true;
-						revert();
-					}
-				}, function(err) {
-					$scope.revert = true;
-					revert();
-				});
-
+				assignAssigneeModal(beforeUpdatenewTasks,taskId,2);
 				return;
 			}else if(startList == "startedTasks" && endList == "finishedTasks"){
 				var assigneeId = taskCard.children[1].innerHTML;
@@ -195,7 +176,41 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			return;
 		}
 	}
-
+	
+	function assignAssigneeModal(array,taskId, newState){
+		// open modal
+		var modalInstance = $uibModal.open({
+			templateUrl : '/glimpse/partials/assignAssignee',
+			controller : 'TaskController',
+			controllerAs : 'tc',
+			resolve : {
+				task : function() {
+					return getTaskFromId(array,taskId);
+				},
+				team : function(){
+					return $scope.projectDetails.team;
+				},
+				newState : newState
+			}
+		});
+		modalInstance.result.then(function(data) {
+			//modal closed success
+			
+			if(data == "done"){
+				//call refresh function
+				$scope.revert = false;
+				getProjectTasks();
+				return;
+			}else{
+				$scope.revert = true;
+				revert();
+			}
+		}, function(err) {
+			$scope.revert = true;
+			revert();
+		});
+	}
+	
 	function completeStartedTask(task_id){
 		var t = {};
 		for(var i=0;i<beforeUpdatestartedTasks.length;i++){

@@ -51,8 +51,13 @@
 								<h3 class="panel-title">{{app.title}}</h3>
 							</div>
 							<div class="panel-body">
-								{{app.description}} <br /> <br /> <small>Estimate TOC:
-									{{app.estimate}}</small>
+								{{app.description}} <br /> <br /> 
+								<small>
+									<span ng-show="app.assignee != null">Assignee:
+									{{app.assignee.name}} <span ng-click="phc.editAssignee(startedTasks,$index,app.task_id,1)" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</span>
+									<br /> <span>Estimate TOC: {{app.estimate}}</span>
+								</small>
 							</div>
 						</div>
 					</div>
@@ -71,8 +76,12 @@
 								<h3 class="panel-title">{{app.title}}</h3>
 							</div>
 							<div class="panel-body">
-								{{app.description}} <br /> <br /> <small>Assignee:
-									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}}
+								{{app.description}} <br /> <br /> 
+								<small>
+									<span ng-show="app.assignee != null">Assignee:
+									{{app.assignee.name}} <span ng-click="phc.editAssignee(startedTasks,$index,app.task_id,2)" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</span>
+									<br /> <span>Estimate TOC: {{app.estimate}}</span>
 								</small>
 							</div>
 						</div>
@@ -92,12 +101,17 @@
 								<h3 class="panel-title">{{app.title}}</h3>
 							</div>
 							<div class="panel-body">
-								{{app.description}} <br /> <br /> <small>Assignee:
-									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}}
+								{{app.description}} <br /> <br /> 
+								<small>
+									<span ng-show="app.assignee != null">Assignee:
+									{{app.assignee.name}} <span ng-click="phc.editAssignee(startedTasks,$index,app.task_id,3)" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</span>
+									<br /> <span>Estimate TOC: {{app.estimate}}</span>
 								</small>
 							</div>
 						</div>
 					</div>
+					<div style="height:100px;"></div>
 				</div>
 			</div>
 
