@@ -26,7 +26,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 	 * Create new project DAO implementation
 	 */
 	public Project create(Project project) {
-		
+
 		Session session = sessionFactory.openSession();
 		Transaction tx =  session.beginTransaction();
 		try{
@@ -40,25 +40,25 @@ public class ProjectDAOImpl implements ProjectDAO {
 		}
 		return project;
 	}
-	
-	
+
+
 	@Transactional
 	public Project read(long id) {
 		Session session = sessionFactory.openSession();
 		Transaction tx =  session.beginTransaction();
 		Project project = null;
 		try{
-		project = (Project)session.get(Project.class,id);
-		tx.commit();
+			project = (Project)session.get(Project.class,id);
+			tx.commit();
 		}
 		catch(HibernateException h){
-		tx.rollback();
+			tx.rollback();
 		}finally{
-		session.close();
+			session.close();
 		}
 		return project;
-		}
-	
+	}
+
 	/**
 	 * Update project DAO implementation
 	 */
@@ -77,7 +77,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		}
 		return project;
 	}
-	
+
 	/**
 	 * Delete project DAO implementation
 	 */
