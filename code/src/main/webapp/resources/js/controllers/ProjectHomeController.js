@@ -16,7 +16,8 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 	$scope.startedTasks = [];
 	$scope.finishedTasks = [];
 	$scope.canceledTasks = [];
-
+	
+	phc.inPlanning = false;
 
 	/**ng init for fetching all projects of an user**/
 	phc.getProjectDetails = function() {
@@ -35,6 +36,9 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		.success(function(data) {
 			$scope.projectDetails = data;
 			// get project tasks
+			if($scope.projectDetails.state.project_state_id == 1){
+				phc.inPlanning = true;
+			}
 			$scope.ownerId =  data.owner.id
 			getProjectTasks();
 
@@ -43,27 +47,49 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		});	
 	};
 
-
+	phc.deleteTask= function(index, task_id){
+		console.log(task_id);
+		DataService.deleteData("/glimpse/task/"+task_id,[])
+		.success(function(data) {
+			console.log("before",$scope.newTasks);
+			$scope.newTasks.splice(index,1);
+			console.log("after",$scope.newTasks);
+		}).error(function(err){
+			console.log("Error getting the project details");
+		});
+	}
+	
 	//Get project tasks
 	function getProjectTasks(){
 
+		newTasks = [];
+		assignedTasks = [];
+		startedTasks = [];
+		finishedTasks = [];
+		canceledTasks = [];
+		
 		DataService.getData("/glimpse/project/"+phc.project_id+"/tasks")
 		.success(function(data) {
 			console.log("tasks",data);
 			//assign tasks by task state
-
 			for(var i=0;i<data.length;i++){
 				if(data[i].state.value=="new")
-					$scope.newTasks.push(data[i]);
+					newTasks.push(data[i]);
 				else if(data[i].state.value=="assigned")
-					$scope.assignedTasks.push(data[i]);
+					assignedTasks.push(data[i]);
 				else if(data[i].state.value=="started")
-					$scope.startedTasks.push(data[i]);
+					startedTasks.push(data[i]);
 				else if(data[i].state.value=="finished")
-					$scope.finishedTasks.push(data[i]);
+					finishedTasks.push(data[i]);
 				else if(data[i].state.value=="cancelled")
-					$scope.canceledTasks.push(data[i]);
-			}				
+					canceledTasks.push(data[i]);
+			}
+			
+			$scope.newTasks = newTasks;
+			$scope.assignedTasks = assignedTasks;
+			$scope.startedTasks = startedTasks;
+			$scope.finishedTasks = finishedTasks;
+			$scope.canceledTasks = canceledTasks;
 		})
 		.error(function(err){
 			console.log("Error while getting all tasks of the project");
@@ -73,7 +99,12 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 	}
 
 	function handleTransfer(startList, endList, taskId, taskCard){
-		console.log(startList, endList, taskId, taskCard);
+		console.log(startList, endList, taskId, taskCard,$scope.projectDetails.state.project_state_id);
+		if($scope.projectDetails.state.project_state_id >= 3){ // no changes when cancelled or completed
+			$scope.revert = true;
+			return;
+
+		}
 		// Cancel and Finished are terminal states
 		if(startList == "canceledTasks" || startList == "finishedTasks"){
 			$scope.revert = true;
