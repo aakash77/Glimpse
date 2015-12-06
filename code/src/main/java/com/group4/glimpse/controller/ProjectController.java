@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +17,6 @@ import com.group4.glimpse.dao.UserDAO;
 import com.group4.glimpse.model.Project;
 import com.group4.glimpse.model.Project_State;
 import com.group4.glimpse.model.Task;
-import com.group4.glimpse.model.User;
 import com.group4.glimpse.service.ProjectService;
 
 @Controller
@@ -110,7 +108,12 @@ public class ProjectController {
 
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
-
+	
+	/**
+	 * Get all tasks of a project
+	 * @param project_id
+	 * @return
+	 */
 	@RequestMapping(value="/{project_id}/tasks",method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<List> getAllTasks(@PathVariable long project_id){
@@ -118,5 +121,22 @@ public class ProjectController {
 		List<Task> tasks = projectService.getAllTasks(project_id);
 		return new ResponseEntity<List>(tasks, HttpStatus.OK);
 	}
-
+	
+	/**
+	 * Update Project State
+	 * @param project_id
+	 * @param state_value
+	 * @return updated project
+	 */
+	@RequestMapping(value="/{project_id}/state/{state_value}",method=RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<Project> updateState(@PathVariable long project_id,@PathVariable String state_value){
+		
+		Project project = projectService.updateState(project_id, state_value);
+		
+		if(project==null)
+			return new ResponseEntity<Project>(project, HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<Project>(project, HttpStatus.OK);
+	}
 }

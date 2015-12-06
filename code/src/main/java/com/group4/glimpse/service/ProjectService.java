@@ -27,8 +27,11 @@ public interface ProjectService {
 	 */
 	public Project read(long project_id);
 	
-	/*
+	/**
 	 * get all tasks
 	 */
 	public List<Task> getAllTasks(long project_id);
+	
+	
+	public Project updateState(long project_id,String state_value);
 }
