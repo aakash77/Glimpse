@@ -16,7 +16,8 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 	$scope.startedTasks = [];
 	$scope.finishedTasks = [];
 	$scope.canceledTasks = [];
-
+	
+	phc.inPlanning = false;
 
 	/**ng init for fetching all projects of an user**/
 	phc.getProjectDetails = function() {
@@ -35,6 +36,9 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		.success(function(data) {
 			$scope.projectDetails = data;
 			// get project tasks
+			if($scope.projectDetails.state.project_state_id == 1){
+				phc.inPlanning = true;
+			}
 			$scope.ownerId =  data.owner.id
 			getProjectTasks();
 
@@ -43,27 +47,55 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		});	
 	};
 
-
+	phc.deleteTask= function(index, task_id){
+		console.log(task_id);
+		DataService.deleteData("/glimpse/task/"+task_id,[])
+		.success(function(data) {
+			console.log("before",$scope.newTasks);
+			$scope.newTasks.splice(index,1);
+			console.log("after",$scope.newTasks);
+		}).error(function(err){
+			console.log("Error getting the project details");
+		});
+	}
+	
+	//edit assignee
+	phc.editAssignee = function(array,index,task_id, newState){
+		console.log("newState",newState);
+		assignAssigneeModal(array,task_id, newState);
+	}
+	
 	//Get project tasks
 	function getProjectTasks(){
 
+		newTasks = [];
+		assignedTasks = [];
+		startedTasks = [];
+		finishedTasks = [];
+		canceledTasks = [];
+		
 		DataService.getData("/glimpse/project/"+phc.project_id+"/tasks")
 		.success(function(data) {
 			console.log("tasks",data);
 			//assign tasks by task state
-
 			for(var i=0;i<data.length;i++){
 				if(data[i].state.value=="new")
-					$scope.newTasks.push(data[i]);
+					newTasks.push(data[i]);
 				else if(data[i].state.value=="assigned")
-					$scope.assignedTasks.push(data[i]);
+					assignedTasks.push(data[i]);
 				else if(data[i].state.value=="started")
-					$scope.startedTasks.push(data[i]);
+					startedTasks.push(data[i]);
 				else if(data[i].state.value=="finished")
-					$scope.finishedTasks.push(data[i]);
+					finishedTasks.push(data[i]);
 				else if(data[i].state.value=="cancelled")
-					$scope.canceledTasks.push(data[i]);
-			}				
+					canceledTasks.push(data[i]);
+			}
+			
+			$scope.newTasks = newTasks;
+			$scope.assignedTasks = assignedTasks;
+			$scope.startedTasks = startedTasks;
+			$scope.finishedTasks = finishedTasks;
+			$scope.canceledTasks = canceledTasks;
 		})
 		.error(function(err){
 			console.log("Error while getting all tasks of the project");
@@ -73,7 +105,12 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 	}
 
 	function handleTransfer(startList, endList, taskId, taskCard){
-		console.log(startList, endList, taskId, taskCard);
+		console.log(startList, endList, taskId, taskCard,$scope.projectDetails.state.project_state_id);
+		if($scope.projectDetails.state.project_state_id >= 3){ // no changes when cancelled or completed
+			$scope.revert = true;
+			return;
+
+		}
 		// Cancel and Finished are terminal states
 		if(startList == "canceledTasks" || startList == "finishedTasks"){
 			$scope.revert = true;
@@ -100,37 +137,12 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 					updateTaskStatus(beforeUpdatecanceledTasks, 5, taskId);
 
 				return;
+			}else if(startList == "assignedTasks" && endList == "startedTasks"){
+				updateTaskStatus(beforeUpdateassignedTasks, 2, taskId);
+				$scope.revert = false;
+				return;
 			}else if(startList == "newTasks" && endList == "assignedTasks"){
-				// open modal
-				var modalInstance = $uibModal.open({
-					templateUrl : '/glimpse/partials/assignAssignee',
-					controller : 'TaskController',
-					controllerAs : 'tc',
-					resolve : {
-						task : function() {
-							return getTaskFromId(beforeUpdatenewTasks,taskId);
-						},
-						team : function(){
-							return $scope.projectDetails.team;
-						}
-					}
-				});
-				modalInstance.result.then(function(data) {
-					//modal closed success
-					console.log(data);
-					if(data == "done"){
-						//call refresh function
-						$scope.revert = false;
-						return;
-					}else{
-						$scope.revert = true;
-						revert();
-					}
-				}, function(err) {
-					$scope.revert = true;
-					revert();
-				});
-
+				assignAssigneeModal(beforeUpdatenewTasks,taskId,2);
 				return;
 			}else if(startList == "startedTasks" && endList == "finishedTasks"){
 				var assigneeId = taskCard.children[1].innerHTML;
@@ -164,7 +176,41 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			return;
 		}
 	}
-
+	
+	function assignAssigneeModal(array,taskId, newState){
+		// open modal
+		var modalInstance = $uibModal.open({
+			templateUrl : '/glimpse/partials/assignAssignee',
+			controller : 'TaskController',
+			controllerAs : 'tc',
+			resolve : {
+				task : function() {
+					return getTaskFromId(array,taskId);
+				},
+				team : function(){
+					return $scope.projectDetails.team;
+				},
+				newState : newState
+			}
+		});
+		modalInstance.result.then(function(data) {
+			//modal closed success
+			
+			if(data == "done"){
+				//call refresh function
+				$scope.revert = false;
+				getProjectTasks();
+				return;
+			}else{
+				$scope.revert = true;
+				revert();
+			}
+		}, function(err) {
+			$scope.revert = true;
+			revert();
+		});
+	}
+	
 	function completeStartedTask(task_id){
 		var t = {};
 		for(var i=0;i<beforeUpdatestartedTasks.length;i++){

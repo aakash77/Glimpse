@@ -27,27 +27,37 @@
 			</div>
 		</div>
 
-		<div class="row pull-right" style="margin-top: -4%;">
-			<button class="btn btn-success" ng-click="phc.addTaskBtn()" style="margin-right:15px;">
-				<span class='glyphicon glyphicon-plus'></span> Add Task
-			</button>
-		</div>
 
 		<div class="row taskboard">
-			<div class="col-md-1"></div>
+			<div class="col-md-1" style="margin-top:20px;">
+					<button class="btn btn-primary" ng-click="phc.addTaskBtn()">
+						<span class='glyphicon glyphicon-plus'></span> Task
+					</button>
+			</div>
 			<div class="col-md-2 newTasks">
 				<h4>New Tasks</h4>
 				<div ui-sortable="sortableOptions" class="tasklane screen floatleft"
 					ng-model="newTasks">
 					<div class="app" ng-repeat="app in newTasks">
 						<span class="id hidden">{{app.task_id}}</span>
-						<div class="panel panel-warning">
+						<div class="panel panel-warning" id="task_panel_{{app.task_id}}">
+							<button ng-show="phc.inPlanning" type="button" class="close" 
+								data-target="#task_panel_{{app.task_id}}" 
+								data-dismiss="alert"
+								ng-click="phc.deleteTask($index,app.task_id)">
+								<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+							</button>
 							<div class="panel-heading">
 								<h3 class="panel-title">{{app.title}}</h3>
 							</div>
 							<div class="panel-body">
-								{{app.description}} <br /> <br /> <small>Estimate TOC:
-									{{app.estimate}}</small>
+								{{app.description}} <br /> <br /> 
+								<small>
+									<span ng-show="app.assignee != null">Assignee:
+									{{app.assignee.name}} <span ng-click="phc.editAssignee(startedTasks,$index,app.task_id,1)" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</span>
+									<br /> <span>Estimate TOC: {{app.estimate}}</span>
+								</small>
 							</div>
 						</div>
 					</div>
@@ -66,8 +76,12 @@
 								<h3 class="panel-title">{{app.title}}</h3>
 							</div>
 							<div class="panel-body">
-								{{app.description}} <br /> <br /> <small>Assignee:
-									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}}
+								{{app.description}} <br /> <br /> 
+								<small>
+									<span ng-show="app.assignee != null">Assignee:
+									{{app.assignee.name}} <span ng-click="phc.editAssignee(startedTasks,$index,app.task_id,2)" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</span>
+									<br /> <span>Estimate TOC: {{app.estimate}}</span>
 								</small>
 							</div>
 						</div>
@@ -87,12 +101,17 @@
 								<h3 class="panel-title">{{app.title}}</h3>
 							</div>
 							<div class="panel-body">
-								{{app.description}} <br /> <br /> <small>Assignee:
-									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}}
+								{{app.description}} <br /> <br /> 
+								<small>
+									<span ng-show="app.assignee != null">Assignee:
+									{{app.assignee.name}} <span ng-click="phc.editAssignee(startedTasks,$index,app.task_id,3)" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</span>
+									<br /> <span>Estimate TOC: {{app.estimate}}</span>
 								</small>
 							</div>
 						</div>
 					</div>
+					<div style="height:100px;"></div>
 				</div>
 			</div>
 
@@ -109,7 +128,8 @@
 							</div>
 							<div class="panel-body">
 								{{app.description}} <br /> <br /> <small>Assignee:
-									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}}
+									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}} <br />
+									Actual TOC: {{app.actual}}
 								</small>
 							</div>
 						</div>
@@ -129,8 +149,7 @@
 							</div>
 							<div class="panel-body">
 								{{app.description}} <br /> <br /> <small>Assignee:
-									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}} <br />
-									Actual TOC: {{app.actual}}
+									{{app.assignee.name}} <br /> Estimate TOC: {{app.estimate}}
 								</small>
 							</div>
 						</div>
