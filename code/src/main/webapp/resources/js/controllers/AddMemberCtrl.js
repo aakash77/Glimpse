@@ -4,20 +4,27 @@ glimpse.controller('AddMemberCtrl', function($scope,$uibModalInstance,project,us
 		amc.addedMembers=[];
 		amc.selectedMember = "";
 		amc.nonProjectUsers = [];
-		DataService.getData(urlConstants.GET_ALL_USERS,{}).success(function(response){
-			amc.allUsers = response;
-			console.log(response);
+		
+		DataService.getData("/glimpse/project/"+project.project_id,[])
+		.success(function(data) {
+			project = data;
 			amc.projectUsers = project.team;
-			var loopLength = amc.allUsers.length - amc.projectUsers.length;
-			for(var i=0;i<loopLength;i++){
-				var j=0;
-				while(j<amc.projectUsers.length && amc.projectUsers[j].id != amc.allUsers[i].id)
-					j++;
-				if(j>=amc.projectUsers.length)
-					amc.nonProjectUsers.push(amc.allUsers[i]);
-			}
+			DataService.getData(urlConstants.GET_ALL_USERS,{}).success(function(response){
+				amc.allUsers = response;
+				/*console.log(response);*/
+				var loopLength = amc.allUsers.length - amc.projectUsers.length;
+				for(var i=0;i<loopLength;i++){
+					var j=0;
+					while(j<amc.projectUsers.length && amc.projectUsers[j].id != amc.allUsers[i].id)
+						j++;
+					if(j>=amc.projectUsers.length)
+						amc.nonProjectUsers.push(amc.allUsers[i]);
+				}
+			}).error(function(err){
+				console.log("Error while getting all users");
+			});
 		}).error(function(err){
-			console.log("Error while getting all users");
+			console.log("Error getting the project details");
 		});
 	};
 
@@ -42,20 +49,18 @@ glimpse.controller('AddMemberCtrl', function($scope,$uibModalInstance,project,us
 		var emailList = amc.addedMembers.map(function(member){
 			return member.email;
 		});
-		
 		var queryParams = "?sendTo="+emailList+"&currentUser="+user.email+"&projectId="+project.project_id;
 		DataService.postData(urlConstants.SEND_EMAILS_INVITATIONS+queryParams,{})
 		.success(function(data) {
 			console.log("before modal close");
 			console.log(data);
-			$uibModalInstance.close();
 		}).error(function(err){
 			$scope.formError = "Error while sending invitation.";
-		});	
+		});
+		$uibModalInstance.close("add member successful");
 	};
 
 	amc.cancel = function(){
 		$uibModalInstance.dismiss();
 	};
-
 });

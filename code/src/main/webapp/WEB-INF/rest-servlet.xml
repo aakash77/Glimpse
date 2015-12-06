@@ -83,9 +83,9 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<bean id="userServiceImpl" class="com.group4.glimpse.service.impl.UserServiceImpl"/>
+	<!-- <bean id="userServiceImpl" class="com.group4.glimpse.service.impl.UserServiceImpl"/>
 						
-	<bean id="userDAOImpl" class="com.group4.glimpse.dao.impl.UserDAOImpl"/>
+	<bean id="userDAOImpl" class="com.group4.glimpse.dao.impl.UserDAOImpl"/> -->
 	
 	<!-- SET default mail properties -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

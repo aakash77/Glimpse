@@ -75,8 +75,8 @@ glimpse.controller('ProjectController', function($scope, $location, DataService,
 			}
 		});
 
-		modalInstance.result.then(function() {
-			//modal success
+		modalInstance.result.then(function(data) {
+			console.log("closed modal add member");
 		}, function() {
 			//modal exited
 		});
