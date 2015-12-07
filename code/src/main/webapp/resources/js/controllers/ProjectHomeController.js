@@ -139,18 +139,24 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 	}
 
 	function updateProjectColor(status){
+		/**
+		 * 1-Planning
+		 * 2-Ongoing
+		 * 3-Cancelled
+		 * 4-Completed
+		 */
 		switch(status){
 			case 1:
 				phc.statusColor = "rgba(255, 228, 0, 0.7)";
 				break;
 			case 2:
-				phc.statusColor = "green";
+				phc.statusColor = "blue";
 				break;
 			case 3:
-				phc.statusColor = "grey";
+				phc.statusColor = "red";
 				break;
 			case 4:
-				phc.statusColor = "blue";
+				phc.statusColor = "green";
 				break;
 			default:
 				phc.statusColor = "rgba(255, 228, 0, 0.7)";
@@ -400,5 +406,8 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		}, function() {
 		});
 	};
-
+	
+	phc.backToProjects = function(){
+		$scope.templateView.template = "/glimpse/partials/projectboard";
+	};
 });
