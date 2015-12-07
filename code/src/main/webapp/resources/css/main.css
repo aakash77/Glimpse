@@ -139,6 +139,10 @@ body {
     background-size: 128px 128px;
 }
 
+.pointer{
+	cursor: pointer;
+}
+
 /* .a[ng-click]{
     cursor: pointer;
 } */
