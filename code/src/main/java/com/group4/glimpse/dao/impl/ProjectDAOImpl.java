@@ -22,6 +22,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 
 	@Autowired
 	SessionFactory sessionFactory;
+
 	/**
 	 * Create new project DAO implementation
 	 */
@@ -41,7 +42,9 @@ public class ProjectDAOImpl implements ProjectDAO {
 		return project;
 	}
 
-
+	/**
+	 * DAO Implementation to read a project
+	 */
 	@Transactional
 	public Project read(long id) {
 		Session session = sessionFactory.openSession();
@@ -97,7 +100,9 @@ public class ProjectDAOImpl implements ProjectDAO {
 		return project;
 	}
 
-
+	/**
+	 * DAO Implementation to get all tasks of a project
+	 */
 	@Override
 	public List<Task> getAllTasks(long project_id) {
 		Session session = sessionFactory.openSession();

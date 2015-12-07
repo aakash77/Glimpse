@@ -26,5 +26,4 @@ public interface EmailValidationService {
 	
 	public EmailValidation read(long invitationid);
 
-
 }

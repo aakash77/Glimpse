@@ -6,6 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author Group 4 
+ * Project_State POJO class
+ */
 @Entity
 @Table(name="project_state")
 public class Project_State {

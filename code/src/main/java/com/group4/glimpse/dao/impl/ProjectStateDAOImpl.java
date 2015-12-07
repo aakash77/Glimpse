@@ -17,6 +17,9 @@ public class ProjectStateDAOImpl implements ProjectStateDAO {
 	@Autowired
 	SessionFactory sessionFactory;
 
+	/**
+	 * DAO Implementation to read project state
+	 */
 	@Override
 	public Project_State read(String project_state) {
 		
@@ -37,5 +40,4 @@ public class ProjectStateDAOImpl implements ProjectStateDAO {
 		}
 		return project_State;
 	}
-
 }

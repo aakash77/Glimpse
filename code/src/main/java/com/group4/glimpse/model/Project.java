@@ -18,6 +18,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+/**
+ * @author Group 4 
+ * Project POJO class
+ */
 @Entity
 @Table(name="project")
 public class Project {

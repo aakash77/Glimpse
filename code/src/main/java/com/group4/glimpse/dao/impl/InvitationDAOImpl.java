@@ -16,6 +16,9 @@ public class InvitationDAOImpl implements InvitationDAO {
 	@Autowired
 	SessionFactory sessionFactory;
 	
+	/**
+	 * DAO Implementation to create invitation
+	 */
 	@Override
 	public Invitations create(Invitations invitations) {
 		Session session = sessionFactory.openSession();
@@ -32,6 +35,9 @@ public class InvitationDAOImpl implements InvitationDAO {
 		return invitations;
 	}
 
+	/**
+	 * DAO Implementation to read invitation
+	 */
 	@Override
 	public Invitations read(long invitation_id) {
 		Session session = sessionFactory.openSession();
@@ -49,6 +55,9 @@ public class InvitationDAOImpl implements InvitationDAO {
 		return invitation;
 	}
 
+	/**
+	 * DAO Implementation to update an invitation
+	 */
 	@Override
 	public Invitations update(Invitations invitations) {
 		Session session = sessionFactory.openSession();
@@ -67,6 +76,9 @@ public class InvitationDAOImpl implements InvitationDAO {
 		
 	}
 
+	/**
+	 * DAO Implementation to delete an invitation
+	 */
 	@Override
 	public Invitations delete(Invitations invitations) {
 		Session session = sessionFactory.openSession();

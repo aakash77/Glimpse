@@ -5,27 +5,27 @@ import com.group4.glimpse.model.Project;
 
 public interface InvitationDAO {
 	/**
-	 * create a new project entry
-	 * @return the project created or appropriate error code 
+	 * create a new invitation
+	 * @return the invitation created
 	 */
 	public Invitations create(Invitations invitations);
 	
 	/**
-	 * read details of a Project
+	 * read details of a invitation
 	 * @return
 	 */
 	public Invitations read(long invitation_id);
 	
 	
 	/**
-	 * update project's details
-	 * @return details of the Project updated or appropriate error code
+	 * update invitation's details
+	 * @return details of the Invitation updated or appropriate error code
 	 */
 	public Invitations update(Invitations invitations);
 	
 	/**
-	 * delete project entry
-	 * @return deleted entry of project
+	 * delete invitation entry
+	 * @return deleted entry of invitation
 	 */
 	public Invitations delete(Invitations invitations);
 }

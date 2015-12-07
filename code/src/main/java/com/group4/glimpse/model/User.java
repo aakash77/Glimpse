@@ -18,7 +18,10 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
-
+/**
+ * @author Group 4 
+ * User POJO class
+ */
 @Entity
 @Table(name="user", uniqueConstraints = { @UniqueConstraint(columnNames = {
 "email"}) })

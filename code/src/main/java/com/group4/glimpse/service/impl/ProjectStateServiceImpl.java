@@ -15,6 +15,9 @@ public class ProjectStateServiceImpl implements ProjectStateService {
 	@Autowired
 	ProjectStateDAO projectStateDAO;
 	
+	/**
+	 * Service Implementation to read project state
+	 */
 	@Override
 	public Project_State read(String project_state) {
 		return projectStateDAO.read(project_state);

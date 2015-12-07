@@ -21,8 +21,8 @@ public class EmailSenderServiceImpl implements EmailSender {
 	private ProjectService projectService;
 
 	/**
-	 * This method will compose and send the message
-	 * */
+	 * This method will compose and send the message for invitation to be a part of a project/team
+	 */
 	public void sendMail(String to, String subject, long invitationId, long project_id)
 	{
 		Project project = projectService.read(project_id);
@@ -41,6 +41,9 @@ public class EmailSenderServiceImpl implements EmailSender {
 
 	}
 
+	/**
+	 * This method will compose and send the message for email validation
+	 */
 	public void sendMail(String to, String subject, long idEmailValidation)
 	{
 

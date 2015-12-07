@@ -82,6 +82,9 @@ public class UserDAOImpl implements UserDAO {
 		return user;		
 	}
 
+	/**
+	 * DAO Implementation to get all projects of a user
+	 */
 	@Override
 	public List<Project> getProjects(User user) {
 		Session session = sessionFactory.openSession();
@@ -101,6 +104,9 @@ public class UserDAOImpl implements UserDAO {
 		return projects;
 	}
 
+	/**
+	 * DAO Implementation to get a user
+	 */
 	@Override
 	public User getUser(long id) {
 		Session session = sessionFactory.openSession();
@@ -117,6 +123,9 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 
+	/**
+	 * DAO Implementation to get all users of Glimpse
+	 */
 	@Override
 	public List<User> getAllUsers() {
 		Session session = sessionFactory.openSession();
@@ -135,6 +144,9 @@ public class UserDAOImpl implements UserDAO {
 		return users;
 	}
 
+	/**
+	 * DAO Implementation to read/get a user
+	 */
 	@Override
 	public User read(long id) {
 		Session session = sessionFactory.openSession();

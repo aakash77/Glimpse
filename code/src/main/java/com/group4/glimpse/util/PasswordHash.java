@@ -2,6 +2,11 @@ package com.group4.glimpse.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+/**
+ * Hash Password before saving in database using Bcrypt
+ * @author Group 4
+ *
+ */
 public class PasswordHash {
 
 	// Define the BCrypt workload to use when generating password hashes. 10-31 is a valid value.
@@ -38,5 +43,4 @@ public class PasswordHash {
 
 		return(password_verified);
 	}
-
 }

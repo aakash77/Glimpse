@@ -10,6 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * @author Group 4 
+ * Invitations POJO class
+ */
 @Entity
 @Table(name="invitations")
 public class Invitations {

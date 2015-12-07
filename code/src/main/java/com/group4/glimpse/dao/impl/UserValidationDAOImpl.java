@@ -13,9 +13,13 @@ import com.group4.glimpse.model.Project;
 
 @Repository
 public class UserValidationDAOImpl implements UserValidationDAO {
+
 	@Autowired
 	SessionFactory sessionFactory;
 	
+	/**
+	 * DAO Implementation to create a email validation entry
+	 */
 	@Override
 	public EmailValidation create(EmailValidation user) {
 		Session session = sessionFactory.openSession();
@@ -31,6 +35,9 @@ public class UserValidationDAOImpl implements UserValidationDAO {
 		return user;
 	}
 
+	/**
+	 * DAO Implementation to update a email validation entry
+	 */
 	@Override
 	public EmailValidation update(EmailValidation user) {
 		Session session = sessionFactory.openSession();
@@ -46,6 +53,9 @@ public class UserValidationDAOImpl implements UserValidationDAO {
 		return user;	
 	}
 
+	/**
+	 * DAO Implementation to read an email validation entry
+	 */
 	@Override
 	public EmailValidation read(long idEmailValidation) {
 		Session session = sessionFactory.openSession();
