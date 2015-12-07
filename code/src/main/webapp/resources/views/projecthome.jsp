@@ -7,7 +7,7 @@
 					<div class="row">
 						<div class="col-md-1">
 							<h1>
-								<span class="glyphicon glyphicon-off" style="color: green;">
+								<span ng-click="phc.updateProjectStatus()" class="glyphicon glyphicon-off glyphicon-info pointer" style="color: {{phc.statusColor}};">
 							</h1>
 						</div>
 						<div class="col-md-11">
@@ -54,7 +54,7 @@
 								{{app.description}} <br /> <br /> 
 								<small>
 									<span ng-show="app.assignee != null">Assignee:
-									{{app.assignee.name}} <span ng-click="phc.editAssignee(startedTasks,$index,app.task_id,1)" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									{{app.assignee.name}} <span ng-click="phc.editAssignee(newTasks,$index,app.task_id,1)" class="glyphicon glyphicon-pencil pointer" aria-hidden="true"></span>
 									</span>
 									<br /> <span>Estimate TOC: {{app.estimate}}</span>
 								</small>
@@ -79,7 +79,7 @@
 								{{app.description}} <br /> <br /> 
 								<small>
 									<span ng-show="app.assignee != null">Assignee:
-									{{app.assignee.name}} <span ng-click="phc.editAssignee(startedTasks,$index,app.task_id,2)" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									{{app.assignee.name}} <span ng-click="phc.editAssignee(assignedTasks,$index,app.task_id,2)" class="glyphicon glyphicon-pencil pointer" aria-hidden="true"></span>
 									</span>
 									<br /> <span>Estimate TOC: {{app.estimate}}</span>
 								</small>
@@ -104,7 +104,7 @@
 								{{app.description}} <br /> <br /> 
 								<small>
 									<span ng-show="app.assignee != null">Assignee:
-									{{app.assignee.name}} <span ng-click="phc.editAssignee(startedTasks,$index,app.task_id,3)" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									{{app.assignee.name}} <span ng-click="phc.editAssignee(startedTasks,$index,app.task_id,3)" class="glyphicon glyphicon-pencil pointer" aria-hidden="true"></span>
 									</span>
 									<br /> <span>Estimate TOC: {{app.estimate}}</span>
 								</small>
