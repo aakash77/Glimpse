@@ -36,7 +36,10 @@ public class UserServiceImpl implements UserService {
 	public User readEmail(String email) {
 		return userDAO.readEmail(email);
 	}
-	
+
+	/**
+	 * Service Implementation to update a user
+	 */
 	public User update(User user) {
 		return userDAO.update(user);
 	}
@@ -68,31 +71,31 @@ public class UserServiceImpl implements UserService {
 			return userDAO.update(user);
 		}
 	}
-	
+
 	/**
 	 * Service Implementation to get projects of an user
 	 */
 	@Override
 	public List<Project> getProjects(long id) {
-		
+
 		User user = userDAO.getUser(id);
 		return userDAO.getProjects(user);
 	}
 
+	/**
+	 * Service Implementation to get all users of Glimpse
+	 */
 	@Override
 	public List<User> getAllUsers() {
-	
+
 		return userDAO.getAllUsers();
 	}
-	
-/**
- * Get User by ID
- */
 
+	/**
+	 * Get User by ID
+	 */
 	@Override
 	public User read(long id) {
 		return userDAO.read(id);
 	}
-
-
 }

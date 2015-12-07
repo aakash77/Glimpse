@@ -19,6 +19,11 @@ import com.group4.glimpse.model.Project_State;
 import com.group4.glimpse.model.Task;
 import com.group4.glimpse.service.ProjectService;
 
+/**
+ * @author Group 4
+ * Project controller
+ */
+
 @Controller
 @RequestMapping(value="/project")
 public class ProjectController {
@@ -29,6 +34,13 @@ public class ProjectController {
 	@Autowired
 	UserDAO userDAO;
 
+	/**
+	 * Adding a project
+	 * @param title
+	 * @param description
+	 * @param user_id
+	 * @return
+	 */
 	//"?title="+$scope.projectTitle+"&description="+
 	//	$scope.projectDescription+"&user_id="+currentUser.user_id;
 	@RequestMapping(method=RequestMethod.POST)
@@ -58,6 +70,12 @@ public class ProjectController {
 
 	}
 
+	/**
+	 * Get a project
+	 * @param id
+	 * @param format
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.GET,value="{id}")
 	@ResponseBody
 	public ResponseEntity<Project> getProject(@PathVariable long id,
@@ -70,6 +88,11 @@ public class ProjectController {
 			return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 
+	/**
+	 * Delete a project
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.DELETE,value="{id}")
 	@ResponseBody
 	public ResponseEntity<Project> deleteProject(@PathVariable long id){
@@ -81,6 +104,13 @@ public class ProjectController {
 			return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 
+	/**
+	 * Update a project
+	 * @param id
+	 * @param project
+	 * @param projectstate
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.POST,value="{id}")
 	@ResponseBody
 	public ResponseEntity<Project> updateProject(@PathVariable long id,

@@ -18,6 +18,11 @@ import com.group4.glimpse.model.User;
 import com.group4.glimpse.service.ProjectService;
 import com.group4.glimpse.service.TaskService;
 
+/**
+ * @author Group 4
+ * Task controller
+ */
+
 @Controller
 @RequestMapping(value="/task")
 public class TaskController {
@@ -28,12 +33,22 @@ public class TaskController {
 	@Autowired
 	ProjectService projectService;
 	
+	/**
+	 * Adding a new task
+	 * @param task
+	 * @param assignee
+	 * @param state
+	 * @param project
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Task> addTask(@ModelAttribute Task task,
 			@ModelAttribute User assignee,
 			@ModelAttribute Task_State state, 
 			@ModelAttribute Project project){	
+		
+			System.out.println(project.getProject_id());
 		
 			//Only during the planning stage, tasks can be added to or deleted from the project.
 			Project projectDetails = projectService.read(project.getProject_id());
@@ -65,6 +80,12 @@ public class TaskController {
 	
 	}
 	
+	/**
+	 * Get a task
+	 * @param id
+	 * @param format
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.GET,value="{id}")
 	@ResponseBody
 	public ResponseEntity<Task> getTask(@PathVariable long id,
@@ -77,6 +98,11 @@ public class TaskController {
 			return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
 	
+	/**
+	 * Delete a task
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.DELETE,value="{id}")
 	@ResponseBody
 	public ResponseEntity<Task> deleteTask(@PathVariable long id){
@@ -96,6 +122,14 @@ public class TaskController {
 			return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
 	
+	/**
+	 * Update a task
+	 * @param id
+	 * @param task
+	 * @param assignee
+	 * @param task_state
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.POST,value="{id}")
 	@ResponseBody
 	public ResponseEntity<Task> updateTask(@PathVariable long id,

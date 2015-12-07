@@ -16,6 +16,7 @@ public class TaskDAOImpl implements TaskDAO {
 	
 	@Autowired
 	SessionFactory sessionFactory;
+	
 	/**
 	 * Create new task DAO implementation
 	 */
@@ -36,7 +37,9 @@ public class TaskDAOImpl implements TaskDAO {
 		return task;
 	}
 	
-	
+	/**
+	 * DAO Implementation to read a task
+	 */
 	@Transactional
 	public Task read(long id) {
 		Session session = sessionFactory.openSession();

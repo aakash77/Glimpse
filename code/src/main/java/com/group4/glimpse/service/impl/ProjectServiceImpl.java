@@ -22,14 +22,23 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
 	ProjectStateService projectStateService;
 
+	/**
+	 * Service Implementation to create a new project
+	 */
 	public Project create(Project project) {
 		return projectDAO.create(project);
 	}
 
+	/**
+	 * Service Implementation to read/get a project
+	 */
 	public Project read(long id) {
 		return projectDAO.read(id);
 	}
 
+	/**
+	 * Service Implementation to update a project
+	 */
 	public Project update(Project project) {
 		return projectDAO.update(project);
 	}

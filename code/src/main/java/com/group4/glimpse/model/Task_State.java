@@ -7,6 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author Group 4 
+ * Task_State POJO class
+ */
 @Entity
 @Table(name="task_state")
 public class Task_State {

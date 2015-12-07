@@ -20,6 +20,11 @@ import com.group4.glimpse.service.InvitationService;
 import com.group4.glimpse.service.ProjectService;
 import com.group4.glimpse.service.UserService;
 
+/**
+ * @author Group 4
+ * Invitation controller
+ */
+
 @Controller
 public class InvitationController {
 	@Autowired
@@ -34,6 +39,13 @@ public class InvitationController {
 	@Autowired
 	UserService userService;
 	
+	/**
+	 * Send mail invitations to provided list of email id's
+	 * @param sendTo
+	 * @param user
+	 * @param projectId
+	 * @return
+	 */
 	@RequestMapping(value="/invitation/send", method=RequestMethod.POST)
 	@ResponseBody
 //	public ResponseEntity<String> sendInvitation(@RequestParam("sendTo") String sendTo, @RequestParam("projectId") long projectId ){
@@ -73,6 +85,11 @@ public class InvitationController {
 	
 	}
 	
+	/**
+	 * User accepting an invitation
+	 * @param invitationId
+	 * @return
+	 */
 	@RequestMapping(value = "/invitation/accept" ,  method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> acceptInvitation(@RequestParam("invitationId") long invitationId ){
@@ -91,10 +108,7 @@ public class InvitationController {
 
 			}
 			
-			return new ResponseEntity<String>("You are already the part of team ! ", HttpStatus.OK);	
-
-
-	
+			return new ResponseEntity<String>("You are already the part of team ! ", HttpStatus.OK);		
 	}
 	
 }
