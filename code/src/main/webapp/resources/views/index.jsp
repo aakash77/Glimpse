@@ -58,6 +58,11 @@
 <!-- Modules -->
 <script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
 
+<!-- NVD3 -->
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/resources/vendor/nvd3/nv.d3.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/vendor/nvd3/nv.d3.css">
 
 <!-- Controllers -->
 <script

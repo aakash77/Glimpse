@@ -400,5 +400,3 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		}, function() {
 		});
 	};
-
-});
