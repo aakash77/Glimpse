@@ -147,7 +147,7 @@ public class ProjectController {
 	@RequestMapping(value="/{project_id}/tasks",method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<List> getAllTasks(@PathVariable long project_id){
-		System.err.println(project_id);
+		System.out.println(project_id);
 		List<Task> tasks = projectService.getAllTasks(project_id);
 		return new ResponseEntity<List>(tasks, HttpStatus.OK);
 	}

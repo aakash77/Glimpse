@@ -1,4 +1,4 @@
-var glimpse = angular.module("Glimpse", [ 'ui.sortable','ui.bootstrap', 'ngMessages','ngRoute', 'ngTable', 'ngAnimate'])
+var glimpse = angular.module("Glimpse", [ 'ui.sortable','ui.bootstrap', 'ngMessages','ngRoute', 'ngTable', 'ngAnimate','nvd3ChartDirectives'])
 
 .config(function($routeProvider, $locationProvider) {
 

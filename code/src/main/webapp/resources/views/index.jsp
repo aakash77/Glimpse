@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%> --%>
 <!DOCTYPE html>
-
+<meta charset="utf-8">
 <html data-ng-app="Glimpse">
 <head>
-<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glimpse</title>
@@ -13,7 +12,6 @@
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
 
 <!-- Angular -->
 <script
@@ -33,6 +31,17 @@
 	src="${pageContext.request.contextPath}/resources/vendor/ngtable/ng-table.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/vendor/ngtable/ng-table.min.css">
+
+<!-- NVd3.js -->
+<%-- <script
+	src="${pageContext.request.contextPath}/resources/vendor/nvd3Chart/d3.js"></script> --%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/vendor/nvd3Chart/nv.d3.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.0/nv.d3.css" />
+<script
+	src="${pageContext.request.contextPath}/resources/vendor/nvd3Chart/angularjs-nvd3-directives.min.js"></script>
 
 <!--Bootstrap CSS-->
 <link rel="stylesheet" type="text/css"
@@ -57,7 +66,6 @@
 
 <!-- Modules -->
 <script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
-
 
 <!-- Controllers -->
 <script
@@ -95,7 +103,15 @@
 	src="${pageContext.request.contextPath}/resources/js/services/auth.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/js/services/dataService.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/services/projectProgressService.js"></script>
+	
+<script
+	src="${pageContext.request.contextPath}/resources/js/services/userProgressService.js"></script>	
 
+<script
+	src="${pageContext.request.contextPath}/resources/js/services/taskRatioService.js"></script>
+	
 <!-- Utility -->
 <script
 	src="${pageContext.request.contextPath}/resources/js/utility/constants.js"></script>
