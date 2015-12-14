@@ -48,12 +48,11 @@ public class TaskController {
 			@ModelAttribute Task_State state, 
 			@ModelAttribute Project project){	
 		
-			System.out.println(project.getProject_id());
 		
-			//Only during the planning stage, tasks can be added to or deleted from the project.
+			//Only during the planning or ongoing stage, tasks can be added to or deleted from the project.
 			Project projectDetails = projectService.read(project.getProject_id());
 			
-			if(projectDetails.getState().getProject_state_id()!=1){
+			if(projectDetails.getState().getProject_state_id()!=1 && projectDetails.getState().getProject_state_id()!=2){
 				return new ResponseEntity<Task>(task, HttpStatus.NOT_FOUND);
 			}
 			
