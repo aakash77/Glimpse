@@ -57,16 +57,18 @@
 								id="projectprogressId" width="500" height="220"
 								x="phc.progressXFunction()" y="phc.progressYFunction()"
 								tooltips="true" interactive="true" showLegend="true"
-								noData="No Task to show progress"> </nvd3-pie-chart>
+								noData="No Task to show progress" color="phc.projectProgressColor()"
+								legendColor="phc.projectProgressColor()"> </nvd3-pie-chart>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="taskratio">
 
 							<nvd3-pie-chart data="phc.taskRatioData" id="taskRatioId"
 								width="500" height="220" x="phc.progressXFunction()"
 								y="phc.progressYFunction()" tooltips="true" interactive="true"
-								showLegend="true" donut="true" noData="No Task to show">
+								showLegend="true" donut="true" noData="No Task to show" color="phc.taskRatioColor()"
+								legendColor="phc.taskRatioColor()">
 							</nvd3-pie-chart>
-
+							
 						</div>
 						<div role="tabpanel" class="tab-pane" id="userprogress">
 							<nvd3-pie-chart data="phc.userProgressData" id="userprogressId"

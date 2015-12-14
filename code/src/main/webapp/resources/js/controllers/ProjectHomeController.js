@@ -471,5 +471,19 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		});
 	};
 	
+	phc.projectProgressColor = function(){
+		var colorArray = ['#5cb85c','#428bca'];
+		return function(d, i) {
+	    	return colorArray[i];
+	    };
+	};
+	
+	phc.taskRatioColor = function(){
+		var colorArray = ['#d9534f','#5bc0de'];
+		return function(d, i) {
+	    	return colorArray[i];
+	    };
+	}; 
+	
 	
 });
