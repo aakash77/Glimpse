@@ -238,7 +238,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			var assigneeId = taskCard.children[1].innerHTML;
 			if(assigneeId == $scope.currentUser.user_id){
 				if(startList == "assignedTasks" && endList == "startedTasks"){
-					updateTaskStatus(beforeUpdateassignedTasks, 3, task_id);
+					updateTaskStatus(beforeUpdateassignedTasks, 3, taskId);
 					$scope.revert = false;
 					return;
 				}else if(startList == "startedTasks" && endList == "finishedTasks"){
@@ -467,6 +467,20 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			phc.taskRatioData = response;
 		});
 	};
+	
+	phc.projectProgressColor = function(){
+		var colorArray = ['#5cb85c','#428bca'];
+		return function(d, i) {
+	    	return colorArray[i];
+	    };
+	};
+	
+	phc.taskRatioColor = function(){
+		var colorArray = ['#d9534f','#5bc0de'];
+		return function(d, i) {
+	    	return colorArray[i];
+	    };
+	}; 
 	
 	
 });

@@ -33,7 +33,7 @@
 						<div ng-if="pc.ownedProjects.length!=0">
 							<div class="panel col-xs-3"
 								ng-repeat="ownerProjects in pc.ownedProjects"
-								style="margin-right: 2%; padding: inherit;">
+								>
 								<div class="panel-heading" align="center"
 									style="background: mediumseagreen; color: aliceblue;">
 									<strong ng-if="ownerProjects.state.value=='cancelled'"
@@ -83,7 +83,7 @@
 						<div ng-if="pc.memberProjects.length!=0">
 							<div class="panel col-xs-3"
 								ng-repeat="memberProjects in pc.memberProjects"
-								style="margin-right: 2%; padding: inherit;">
+								>
 								<div class="panel-heading" align="center"
 									style="background: mediumseagreen; color: aliceblue;">
 									<div class="row">
