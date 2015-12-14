@@ -29,19 +29,42 @@
 
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="/#projectprogress"
-							aria-controls="projectprogress" role="tab" data-toggle="tab">Project Progress</a></li>
+						<li role="presentation" class="active"><a
+							href="/#projectprogress" aria-controls="projectprogress"
+							role="tab" data-toggle="tab">Project Progress</a></li>
 						<li role="presentation"><a href="/#taskratio"
-							aria-controls="taskratio" role="tab" data-toggle="tab">Task Ratio</a></li>
+							aria-controls="taskratio" role="tab" data-toggle="tab">Task
+								Ratio</a></li>
 						<li role="presentation"><a href="/#userprogress"
-							aria-controls="userprogress" role="tab" data-toggle="tab">User Progress</a></li>
+							aria-controls="userprogress" role="tab" data-toggle="tab">User
+								Progress</a></li>
 					</ul>
 
 					<!-- Tab panes -->
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="projectprogress">...</div>
-						<div role="tabpanel" class="tab-pane" id="taskratio">...</div>
-						<div role="tabpanel" class="tab-pane" id="userprogress">...</div>
+						<div role="tabpanel" class="tab-pane active" id="projectprogress">
+							<nvd3-pie-chart data="phc.projectProgressData"
+								id="projectprogressId" width="500" height="220"
+								x="phc.progressXFunction()" y="phc.progressYFunction()"
+								tooltips="true" interactive="true" showLegend="true"
+								noData="No Task to show progress"> </nvd3-pie-chart>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="taskratio">
+
+							<nvd3-pie-chart data="phc.taskRatioData" id="taskRatioId"
+								width="500" height="220" x="phc.progressXFunction()"
+								y="phc.progressYFunction()" tooltips="true" interactive="true"
+								showLegend="true" donut="true" noData="No Finished Tasks">
+							</nvd3-pie-chart>
+
+						</div>
+						<div role="tabpanel" class="tab-pane" id="userprogress">
+							<nvd3-pie-chart data="phc.userProgressData" id="userprogressId"
+								width="500" height="220" x="phc.progressXFunction()"
+								y="phc.progressYFunction()" tooltips="true" interactive="true"
+								showLegend="true" donut="true" noData="No Finished Tasks">
+							</nvd3-pie-chart>
+						</div>
 					</div>
 
 				</div>

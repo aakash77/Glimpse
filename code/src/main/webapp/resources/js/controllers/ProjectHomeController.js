@@ -1,4 +1,4 @@
-glimpse.controller('ProjectHomeController', function($scope, DataService, NgTableParams, $window,$uibModal) {
+glimpse.controller('ProjectHomeController', function($scope, DataService, NgTableParams, $window,$uibModal,ProjectProgressService,UserProgressService) {
 
 	var phc = this;
 	var tmpList = [];
@@ -9,19 +9,26 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 	var beforeUpdatestartedTasks = [];
 	var beforeUpdatefinishedTasks = [];
 	var beforeUpdatecanceledTasks = [];
+	
 	$scope.revert = false;
-
+	
+	$scope.allTasks = [];
 	$scope.newTasks = [];
 	$scope.assignedTasks = [];
 	$scope.startedTasks = [];
 	$scope.finishedTasks = [];
 	$scope.canceledTasks = [];
-	
+
 	phc.inPlanning = false;
 	phc.statusColor = "rgba(255, 228, 0, 0.7)";
 
 	/**ng init for fetching all projects of an user**/
 	phc.getProjectDetails = function() {
+		
+		phc.projectProgressData = [];
+		phc.userProgressData = [];
+		phc.taskRatioData = [];
+		
 		$scope.currentUser = {
 				name : $window.localStorage.currentUserName,
 				email : $window.localStorage.currentUserEmail,
@@ -31,7 +38,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		phc.project_id = $window.localStorage.project_id;
 
 		delete $window.localStorage.project_id;
-
+		
 		// get users project details
 		DataService.getData("/glimpse/project/"+phc.project_id,[])
 		.success(function(data) {
@@ -48,7 +55,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			console.log("Error getting the project details");
 		});	
 	};
-	
+
 	//update project status to next
 	phc.updateProjectStatus = function(){
 		var curr_state = $scope.projectDetails.state.project_state_id;
@@ -63,7 +70,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 					console.log(data);
 					updateProjectColor(2);
 				}).error(function(err){
-					
+
 				});
 			}
 		}else{
@@ -75,13 +82,13 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 					console.log(data);
 					updateProjectColor(4);
 				}).error(function(err){
-					
+
 				});
 			}
 		}
 	}
-	
-	
+
+
 	// delete task
 	phc.deleteTask= function(index, task_id){
 		console.log(task_id);
@@ -94,13 +101,13 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			console.log("Error getting the project details");
 		});
 	}
-	
+
 	//edit assignee
 	phc.editAssignee = function(array,index,task_id, newState){
 		console.log("newState",newState);
 		assignAssigneeModal(array,task_id, newState);
 	}
-	
+
 	//Get project tasks
 	function getProjectTasks(){
 
@@ -109,11 +116,12 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		startedTasks = [];
 		finishedTasks = [];
 		canceledTasks = [];
-		
+
 		DataService.getData("/glimpse/project/"+phc.project_id+"/tasks")
 		.success(function(data) {
 			console.log("tasks",data);
 			//assign tasks by task state
+			$scope.allTasks = data;
 			for(var i=0;i<data.length;i++){
 				if(data[i].state.value=="new")
 					newTasks.push(data[i]);
@@ -126,39 +134,41 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 				else if(data[i].state.value=="cancelled")
 					canceledTasks.push(data[i]);
 			}
-			
+
 			$scope.newTasks = newTasks;
 			$scope.assignedTasks = assignedTasks;
 			$scope.startedTasks = startedTasks;
 			$scope.finishedTasks = finishedTasks;
 			$scope.canceledTasks = canceledTasks;
+			//Updating charts on data
+			updateCharts();
 		})
 		.error(function(err){
 			console.log("Error while getting all tasks of the project");
 		});
-	}
-
+	};
+	
 	function updateProjectColor(status){
 		switch(status){
-			case 1:
-				phc.statusColor = "rgba(255, 228, 0, 0.7)";
-				break;
-			case 2:
-				phc.statusColor = "green";
-				break;
-			case 3:
-				phc.statusColor = "grey";
-				break;
-			case 4:
-				phc.statusColor = "blue";
-				break;
-			default:
-				phc.statusColor = "rgba(255, 228, 0, 0.7)";
-				break;
+		case 1:
+			phc.statusColor = "rgba(255, 228, 0, 0.7)";
+			break;
+		case 2:
+			phc.statusColor = "green";
+			break;
+		case 3:
+			phc.statusColor = "grey";
+			break;
+		case 4:
+			phc.statusColor = "blue";
+			break;
+		default:
+			phc.statusColor = "rgba(255, 228, 0, 0.7)";
+		break;
 		}
 	}
-	
-	
+
+
 	function handleTransfer(startList, endList, taskId, taskCard){
 		console.log(startList, endList, taskId, taskCard,$scope.projectDetails.state.project_state_id);
 		if($scope.projectDetails.state.project_state_id >= 3){ // no changes when cancelled or completed
@@ -235,7 +245,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			return;
 		}
 	}
-	
+
 	function assignAssigneeModal(array,taskId, newState){
 		// open modal
 		var modalInstance = $uibModal.open({
@@ -254,7 +264,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		});
 		modalInstance.result.then(function(data) {
 			//modal closed success
-			
+
 			if(data == "done"){
 				//call refresh function
 				$scope.revert = false;
@@ -269,7 +279,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			revert();
 		});
 	}
-	
+
 	function completeStartedTask(task_id){
 		var t = {};
 		for(var i=0;i<beforeUpdatestartedTasks.length;i++){
@@ -308,7 +318,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		});
 	}
 
-	
+
 	function getTaskFromId(oldTaskArray,task_id){
 		var t = {};
 		for(var i=0;i<oldTaskArray.length;i++){
@@ -400,3 +410,47 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 		}, function() {
 		});
 	};
+	
+	function updateCharts(){
+		phc.getProjectProgress();
+		phc.getUserProgress();
+		
+		phc.taskRatioData = [{
+			key:"Initial Tasks",
+			value : 8
+		},
+		{
+			key:"Cancelled Tasks",
+			value : 2
+		}];
+	};
+	
+	//Project Progress
+	phc.getProjectProgress = function(){
+		
+		var remainingTasksLength = $scope.allTasks.length-$scope.canceledTasks.length-$scope.finishedTasks.length;
+		ProjectProgressService.transform_data($scope.finishedTasks.length,remainingTasksLength,function(response){
+			phc.projectProgressData = response;
+		});
+	};
+	
+	phc.progressXFunction = function(){
+		return function(d) {
+	        return d.key;
+	    };
+		
+	};
+	phc.progressYFunction = function(){
+		return function(d) {
+	        return d.value;
+	    };
+	};
+	
+	//User Progress
+	phc.getUserProgress = function(){
+		UserProgressService.transform_data($scope.finishedTasks,function(response){
+			phc.userProgressData = response;
+		});
+	};
+	
+});
