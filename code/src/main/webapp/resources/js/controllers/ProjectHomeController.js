@@ -59,6 +59,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 	//update project status to next
 	phc.updateProjectStatus = function(){
 		var curr_state = $scope.projectDetails.state.project_state_id;
+		console.log(curr_state);
 		if(curr_state >= 3){
 			return;
 		}else if(curr_state == 1){
@@ -66,8 +67,8 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			if($scope.assignedTasks.length > 0){
 				$scope.projectDetails.state.project_state_id = 2;
 				DataService.putData("/glimpse/project/"+phc.project_id+"/state/ongoing",[])
-				.success(function(data) {
-					console.log(data);
+				.success(function(updatedProject) {
+					$scope.projectDetails.state = updatedProject.state;
 					updateProjectColor(2);
 				}).error(function(err){
 
@@ -78,8 +79,9 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			if($scope.assignedTasks.length == 0 && $scope.finishedTasks.length > 0 && $scope.newTasks.length == 0){
 				$scope.projectDetails.state.project_state_id = 4;
 				DataService.putData("/glimpse/project/"+phc.project_id+"/state/completed",[])
-				.success(function(data) {
-					console.log(data);
+				.success(function(updatedProject) {
+					console.log(updatedProject);
+					$scope.projectDetails.state = updatedProject.state;
 					updateProjectColor(4);
 				}).error(function(err){
 

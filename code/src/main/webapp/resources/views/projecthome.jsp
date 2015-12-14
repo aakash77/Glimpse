@@ -12,16 +12,17 @@
 			<div class="col-md-6">
 				<div class="page-header">
 					<div class="row" style="margin-top:-7%;">
-						<div class="col-md-1">
+						<div class="col-md-2">
 							<h1>
 								<span ng-click="phc.updateProjectStatus()"
 									class="glyphicon glyphicon-off glyphicon-info pointer"
-									style="color: {{phc.statusColor}}"
+									style="color: {{phc.statusColor}}; margin:0;"
 									ng-attr-title="{{projectDetails.state.value}}">
 
 							</h1>
+							<small>{{projectDetails.state.value | uppercase}}</small>
 						</div>
-						<div class="col-md-11">
+						<div class="col-md-10">
 							<h1>
 								<span>{{projectDetails.title}}</span><br /> <small>{{projectDetails.description}}</small>
 							</h1>
