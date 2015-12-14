@@ -1,4 +1,4 @@
-glimpse.controller('ProjectHomeController', function($scope, DataService, NgTableParams, $window,$uibModal,ProjectProgressService,UserProgressService) {
+glimpse.controller('ProjectHomeController', function($scope, DataService, NgTableParams, $window,$uibModal,ProjectProgressService,UserProgressService,TaskRatioService) {
 
 	var phc = this;
 	var tmpList = [];
@@ -414,15 +414,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 	function updateCharts(){
 		phc.getProjectProgress();
 		phc.getUserProgress();
-		
-		phc.taskRatioData = [{
-			key:"Initial Tasks",
-			value : 8
-		},
-		{
-			key:"Cancelled Tasks",
-			value : 2
-		}];
+		phc.getTaskRatio();
 	};
 	
 	//Project Progress
@@ -452,5 +444,15 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			phc.userProgressData = response;
 		});
 	};
+	
+	//Task Ratio
+	phc.getTaskRatio = function(){
+		
+		var nonCancelledTaskLength = $scope.allTasks.length-$scope.canceledTasks.length; 
+		TaskRatioService.transform_data($scope.canceledTasks.length,nonCancelledTaskLength,function(response){
+			phc.taskRatioData = response;
+		});
+	};
+	
 	
 });

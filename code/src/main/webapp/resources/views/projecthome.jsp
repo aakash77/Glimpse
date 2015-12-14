@@ -54,7 +54,7 @@
 							<nvd3-pie-chart data="phc.taskRatioData" id="taskRatioId"
 								width="500" height="220" x="phc.progressXFunction()"
 								y="phc.progressYFunction()" tooltips="true" interactive="true"
-								showLegend="true" donut="true" noData="No Finished Tasks">
+								showLegend="true" donut="true" noData="No Task to show">
 							</nvd3-pie-chart>
 
 						</div>

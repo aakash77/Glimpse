@@ -109,6 +109,9 @@
 <script
 	src="${pageContext.request.contextPath}/resources/js/services/userProgressService.js"></script>	
 
+<script
+	src="${pageContext.request.contextPath}/resources/js/services/taskRatioService.js"></script>
+	
 <!-- Utility -->
 <script
 	src="${pageContext.request.contextPath}/resources/js/utility/constants.js"></script>
