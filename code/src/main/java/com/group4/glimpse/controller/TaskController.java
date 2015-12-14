@@ -135,8 +135,10 @@ public class TaskController {
 	public ResponseEntity<Task> updateTask(@PathVariable long task_id,
 			@ModelAttribute Task task,
 			@ModelAttribute User assignee,
-			@ModelAttribute Task_State task_state){
+			@ModelAttribute Task_State task_state,
+			@ModelAttribute Project project){
 
+		
 		//TODO add checks to update
 		Task taskUpdate = taskService.read(task_id);
 		
@@ -167,13 +169,13 @@ public class TaskController {
 			taskUpdate.setState(task_state);
 			}
 		}
-		if(assignee!=null){
+		if(assignee.getId()!=0){
 			taskUpdate.setAssignee(assignee);
 		}
 	
 		task = taskService.update(taskUpdate);
 		if(task==null)
-		return new ResponseEntity<Task>(task, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Task>(task, HttpStatus.NOT_FOUND);
 
 		return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
