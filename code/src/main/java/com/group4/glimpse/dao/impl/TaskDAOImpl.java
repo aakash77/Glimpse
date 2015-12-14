@@ -24,7 +24,6 @@ public class TaskDAOImpl implements TaskDAO {
 		Session session = sessionFactory.openSession();
 		Transaction tx =  session.beginTransaction();
 		try{
-			//person.setFriends(friends);
 			session.save(task);
 			tx.commit();
 		}

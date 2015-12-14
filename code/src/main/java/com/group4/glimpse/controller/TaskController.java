@@ -96,15 +96,15 @@ public class TaskController {
 			return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="{id}")
+	@RequestMapping(method=RequestMethod.POST,value="{task_id}")
 	@ResponseBody
-	public ResponseEntity<Task> updateTask(@PathVariable long id,
+	public ResponseEntity<Task> updateTask(@PathVariable long task_id,
 			@ModelAttribute Task task,
 			@ModelAttribute User assignee,
 			@ModelAttribute Task_State task_state){
 
 		//TODO add checks to update
-		Task taskUpdate = taskService.read(id);
+		Task taskUpdate = taskService.read(task_id);
 		
 		if(task.getActual()!=0){
 			taskUpdate.setActual(task.getActual());
@@ -143,5 +143,4 @@ public class TaskController {
 
 		return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
-
 }

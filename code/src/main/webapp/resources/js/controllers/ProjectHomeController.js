@@ -306,6 +306,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			console.log(data);
 			if(data == "done"){
 				//call refresh function
+				console.log("Backend updated");
 				$scope.revert = false;
 				return;
 			}else{
@@ -354,6 +355,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 	}
 
 	function revert(){
+		console.log("revert");
 		if($scope.revert){
 			$scope.newTasks = beforeUpdatenewTasks;
 			$scope.assignedTasks = beforeUpdateassignedTasks;
@@ -383,6 +385,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			connectWith: ".tasklane",
 			stop: function (){
 				revert();
+				updateCharts();
 			}
 	};
 
