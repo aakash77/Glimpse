@@ -225,6 +225,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 				if(assigneeId == $scope.currentUser.user_id){
 					completeStartedTask(taskId);
 					$scope.revert = false;
+					return;
 				}
 			}else{
 				$scope.revert = true;
@@ -238,7 +239,7 @@ glimpse.controller('ProjectHomeController', function($scope, DataService, NgTabl
 			var assigneeId = taskCard.children[1].innerHTML;
 			if(assigneeId == $scope.currentUser.user_id){
 				if(startList == "assignedTasks" && endList == "startedTasks"){
-					updateTaskStatus(beforeUpdateassignedTasks, 3, task_id);
+					updateTaskStatus(beforeUpdateassignedTasks, 3, taskId);
 					$scope.revert = false;
 					return;
 				}else if(startList == "startedTasks" && endList == "finishedTasks"){
