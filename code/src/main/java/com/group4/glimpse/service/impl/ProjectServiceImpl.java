@@ -19,6 +19,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Autowired
 	ProjectDAO projectDAO;
+	
 	@Autowired
 	ProjectStateService projectStateService;
 

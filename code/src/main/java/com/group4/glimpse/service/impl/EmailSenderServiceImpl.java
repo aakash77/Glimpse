@@ -30,7 +30,7 @@ public class EmailSenderServiceImpl implements EmailSender {
 		String messageBody = "This is an invitation to collaborate for the project " +
 				project.getTitle() + "\n" + "This project is about " + project.getDescription() + "\n" +
 				"To accept the invitation click on the below link" + "\n" 
-				+ "http:" + "/" + "/" + "http://localhost:8080/glimpse" +"/invitation/accept" + "?"
+				+ "http:" + "/" + "/" + "localhost:8080/glimpse" +"/invitation/accept" + "?"
 				+ "invitationId" + "=" + invitationId ;
 
 		SimpleMailMessage message = new SimpleMailMessage();
@@ -49,7 +49,7 @@ public class EmailSenderServiceImpl implements EmailSender {
 
 		String messageBody = "Please validate your email address for" +
 				"To accept the invitation click on the below link" + "\n" 
-				+ "http:" + "/" + "/" + "http://localhost:8080/glimpse" + "/validate" + "?"
+				+ "http:" + "/" + "/" + "localhost:8080/glimpse" + "/validate" + "?"
 				+ "idEmailValidation" + "=" + idEmailValidation ;
 
 		SimpleMailMessage message = new SimpleMailMessage();
